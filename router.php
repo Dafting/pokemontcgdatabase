@@ -1,6 +1,6 @@
 <?php
 
-// require_once './controllers/zapatillas.controller.php';
+require_once './controllers/cards.controller.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
@@ -12,11 +12,11 @@ else{
 }
 $params = explode('/', $action);
 
-// $controller = new ZapatillasController();
+$controller = new CardsController();
 switch ($params[0]){
     // case 'listar':
-    //     $controller->ListarSneakers();
-    //     break;
+    // $controller->showCards();
+    // break;
     // case 'insertar':
     //     $controller->AgregarSneakers();
     //     break;
@@ -30,6 +30,6 @@ switch ($params[0]){
     //     $controller->EditarSneakers();
     //     break;
     default:
-        echo '404 - pagina no encontrada';
-        break;
+        $controller->showCards();
+    break;
 }
