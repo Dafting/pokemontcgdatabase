@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'Pokémon TCG Symbols';
+    src: url('../fonts/pokemon-tcg-symbols.ttf');
+}
+
 .image-fit {
     width: 100%;
+}
+
+.card-preview {
+    align-items: center;
+}
+
+.tcg-symbol {
+    font-family: 'Pokémon TCG Symbols', sans-serif;
 }
