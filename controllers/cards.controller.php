@@ -32,7 +32,7 @@ class CardsController {
         if($type = 1) {
             $this->view->showAddPokeCard($card_id);
         } elseif ($type = 2) {
-            //$this->view->showAddTrainerCard();
+            $this->view->showAddTrainerCard($card_id);
         } elseif ($type = 3) {
             //$this->view->showAddEnergyCard();
         }

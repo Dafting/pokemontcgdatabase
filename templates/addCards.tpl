@@ -4,7 +4,7 @@
         <form action="addCard" method="POST" autocomplete="off">
             <div class="row">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Nombre" name="name">
+                    <input type="text" class="form-control" placeholder="Nombre" name="name" required>
                 </div>
                 <div class="col">
                     <select name="type" class="form-control" placeholder="Tipo" data-toggle="tooltip" data-placement="top" title="Tipo de carta">
@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Número de Carta (en esa Expansión)" name="expNumber">
+                    <input type="text" class="form-control" placeholder="Número de Carta (en esa Expansión)" name="expNumber" required>
                 </div>
             </div>
         <div class="alert alert-warning alert-dismissible fade show mt-3 mb-1" role="alert">
