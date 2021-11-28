@@ -1,4 +1,5 @@
-				<div class="row">
+				<h3 class="mb-3">Cartas agregadas recientemente</h3>
+				<div class="row mb-4">
 					<div class="col-md-3">
 						<div class="row card-preview">
 							<div class="col-md-6">
