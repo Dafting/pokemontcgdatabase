@@ -1,4 +1,4 @@
-<div class="jumbotron card card-block">
+<div class="jumbotron card card-block mt-4">
 	<h2>
 		Pokémon TCG Database
 	</h2>
