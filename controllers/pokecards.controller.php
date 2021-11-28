@@ -16,6 +16,7 @@ class PokeCardsController {
         $type = $_REQUEST['type'];
         $hp = $_REQUEST['hp'];
         $stage = $_REQUEST['stage'];
+        $evolvesFrom = $_REQUEST['evolvesFrom'];
         $attackName1 = $_REQUEST['attackName1'];
         $attackDesc1 = $_REQUEST['attackDesc1'];
         $attackDamage1 = $_REQUEST['attackDamage1'];
@@ -34,6 +35,7 @@ class PokeCardsController {
         $card_id = $_REQUEST['card_id'];
         //$image = $_REQUEST['image'];
     
-        $this->model->insertCard($type, $hp, $stage, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo, $card_id);
+        $this->model->insertCard($type, $hp, $stage, $evolvesFrom, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo, $card_id);
+        header('Location: ' . BASE_URL);
     }
 }
