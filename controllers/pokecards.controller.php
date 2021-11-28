@@ -1,41 +1,15 @@
 <?php
 
-include_once('models/cards.model.php');
+include_once('models/pokecards.model.php');
 include_once('views/cards.view.php');
 
-class CardsController {
+class PokeCardsController {
     private $model;
     private $view;
 
     public function __construct() {
-        $this->model = new CardsModel();
+        $this->model = new PokeCardsModel();
         $this->view = new CardsView();
-    }
-
-    function showIndex() {
-        $this->view->showIndex();
-    }
-
-    function showAddCards() {
-        $this->view->showAddCards();
-    }
-
-    function addCard() {
-        $name = $_REQUEST['name'];
-        $type = $_REQUEST['type'];
-        $expansion = $_REQUEST['expansion'];
-        $expNumber = $_REQUEST['expNumber'];
-        $rarity = $_REQUEST['rarity'];
-    
-        $card_id = $this->model->insertCard($name, $type, $expansion, $expNumber, $rarity);
-
-        if($type = 1) {
-            $this->view->showAddPokeCard($card_id);
-        } elseif ($type = 2) {
-            //$this->view->showAddTrainerCard();
-        } elseif ($type = 3) {
-            //$this->view->showAddEnergyCard();
-        }
     }
     
     function addPokeCard() {
@@ -57,8 +31,9 @@ class CardsController {
         $resistance = $_REQUEST['resistance'];
         $retreatCost = $_REQUEST['retreatCost'];
         $pokedexInfo = $_REQUEST['pokedexInfo'];
+        $card_id = $_REQUEST['card_id'];
         //$image = $_REQUEST['image'];
     
-        $this->model->insertCard($type, $hp, $stage, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo);
+        $this->model->insertCard($type, $hp, $stage, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo, $card_id);
     }
 }

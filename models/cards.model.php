@@ -5,6 +5,7 @@ class CardsModel {
 
     public function __construct() {
         $this->db = new PDO('mysql:host=localhost;'.'dbname=pokemontcgdb;charset=utf8', 'root', '');
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     function getAllCards() {
@@ -14,7 +15,6 @@ class CardsModel {
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
         
         return $cards;
-    
     }
 
     function getACard($id) {
@@ -26,10 +26,10 @@ class CardsModel {
         return $singleCard;
     }
 
-    function insertCard($name, $type, $expansion, $expNumber){
+    function insertCard($name, $type, $expansion, $expNumber, $rarity){
     
-        $query = $this->db->prepare('INSERT INTO cards (name, type, expansion, expNumber) VALUES (?, ?, ?, ?)');
-        $query->execute([$name, $type, $expansion, $expNumber]);
+        $query = $this->db->prepare('INSERT INTO cards (name, type, expansion, expNumber, rarity) VALUES (?, ?, ?, ?, ?)');
+        $query->execute([$name, $type, $expansion, $expNumber, $rarity]);
     
         return $this->db->lastInsertId();
     }

@@ -1,6 +1,8 @@
 <?php
 
 require_once './controllers/cards.controller.php';
+require_once './controllers/login.controller.php';
+require_once './controllers/pokecards.controller.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
@@ -12,24 +14,24 @@ else{
 }
 $params = explode('/', $action);
 
-$controller = new CardsController();
-switch ($params[0]){
-    // case 'listar':
-    // $controller->showCards();
-    // break;
-    // case 'insertar':
-    //     $controller->AgregarSneakers();
-    //     break;
-    // case 'borrar':
-    //     $controller->BorrarSneakers($params[1]);
-    //     break;
-    // case 'editar_sneaker':
-    //     $controller->AbrirMenuEdicion($params[1]);
-    //     break;
-    // case 'editar':
-    //     $controller->EditarSneakers();
-    //     break;
+$cardsController = new CardsController();
+$pokeCardController = new PokeCardsController();
+$loginController = new LoginController();
+
+switch ($params[0]) {
+    case 'listar':
+        $cardsController->showIndex();
+    break;
+    case 'admin':
+        $cardsController->showAddCards();
+    break;
+    case 'addCard':
+        $cardsController->addCard();
+    break;
+    case 'addPokemonCard':
+        $pokeCardController->addPokeCard();
+    break;
     default:
-        $controller->showCards();
+        $cardsController->showIndex();
     break;
 }
