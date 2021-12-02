@@ -11,6 +11,7 @@
 	<meta name="description" content="Una base de datos del juego de cartas coleccionables de Pokémon.">
 	<meta name="author" content="Joaquín de la Iglesia">
 
+	<link ref="icon" href="favicon.ico" type="image/x-icon">
 	<link href="{BASE_URL}css/bootstrap.css" rel="stylesheet">
 	<link href="{BASE_URL}css/style.css" rel="stylesheet">
 </head>
@@ -18,13 +19,13 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col">
 				<nav class="navbar navbar-expand-sm navbar-light bg-light navbar-dark bg-dark">
 					<a class="navbar-brand" href="{BASE_URL}">Pokémon TCG Database</a>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#">Link <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="#">Todas las cartas</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">Link</a>
@@ -37,6 +38,15 @@
 										href="{BASE_URL}categorias/entrenador">Entrenador</a> <a class="dropdown-item" href="{BASE_URL}categorias/energia">Energía</a>
 								</div>
 							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle"
+									id="navbarDropdownMenuLink" data-toggle="dropdown">Por expansión</a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" href="#">Base</a> 
+									<a class="dropdown-item" href="#">Jungla</a>
+									<a class="dropdown-item" href="#">Fósil</a>
+								</div>
+							</li>
 						</ul>
 						<form class="form-inline">
 							<input class="form-control mr-sm-2" type="text">
@@ -45,17 +55,6 @@
 							</button>
 						</form>
 						<ul class="navbar-nav ml-md-auto">
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle"
-									id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
-								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="#">Action</a> <a class="dropdown-item"
-										href="#">Another action</a> <a class="dropdown-item" href="#">Something else
-										here</a>
-									<div class="dropdown-divider">
-									</div> <a class="dropdown-item" href="#">Separated link</a>
-								</div>
-							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{BASE_URL}admin">Admin<span class="sr-only">(current)</span></a>
 							</li>

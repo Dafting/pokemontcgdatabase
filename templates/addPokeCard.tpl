@@ -1,7 +1,7 @@
 <div class="container">
     <h2 class="mt-4">Agregar Carta - Pokémon</h2>
     <p>Debe ingresar los siguientes valores:</p>
-        <form action="addPokemonCard" method="POST" autocomplete="off">
+        <form action="addNewPokemonCard" method="POST" autocomplete="off">
             <div class="row">
                 <div class="col">
                     <select name="type" class="form-control" placeholder="Tipo" data-toggle="tooltip" data-placement="top" title="Tipo del Pokémon">

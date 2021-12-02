@@ -1,6 +1,9 @@
 <?php
 
 include_once('models/cards.model.php');
+include_once('models/energycards.model.php');
+include_once('models/pokecards.model.php');
+include_once('models/trainercards.model.php');
 include_once('views/cards.view.php');
 
 class CardsController {
@@ -8,7 +11,10 @@ class CardsController {
     private $view;
 
     public function __construct() {
-        $this->model = new CardsModel();
+        $this->cardModel = new CardsModel();
+        $this->pokeModel = new PokecardsModel();
+        $this->energyModel = new EnergycardsModel();
+        $this->trainerModel = new TrainercardsModel();
         $this->view = new CardsView();
     }
 
@@ -20,6 +26,10 @@ class CardsController {
         $this->view->showAddCards();
     }
 
+    function showAdmin() {
+        $this->view->showAdmin();
+    }
+
     function addCard() {
         $name = $_REQUEST['name'];
         $type = $_REQUEST['type'];
@@ -27,14 +37,50 @@ class CardsController {
         $expNumber = $_REQUEST['expNumber'];
         $rarity = $_REQUEST['rarity'];
     
-        $card_id = $this->model->insertCard($name, $type, $expansion, $expNumber, $rarity);
+        $card_id = $this->cardModel->insertCard($name, $type, $expansion, $expNumber, $rarity);
 
-        if($type = 1) {
-            $this->view->showAddPokeCard($card_id);
-        } elseif ($type = 2) {
-            $this->view->showAddTrainerCard($card_id);
-        } elseif ($type = 3) {
-            //$this->view->showAddEnergyCard();
+        switch ($type) {
+            case 1:
+                $this->view->showAddPokeCard($card_id);
+                break;
+            case 2:
+                $this->view->showAddTrainerCard($card_id);
+                break;
+            case 3:
+                $this->view->showAddEnergyCard($card_id);
+                break;
+            default:
+                echo "Error";
+            break;
         }
+    }
+
+    function deleteCard($id) {
+        $deletedCard = $this->cardModel->getACard($id);
+
+        switch($deletedCard[0]->type) {
+            case 1:
+                $this->pokeModel->deleteCard($id);
+                break;
+            case 2:
+                $this->trainerModel->deleteCard($id);
+                break;
+            case 3:
+                $this->energyModel->deleteCard($id);
+                break;
+            default:
+                echo "Error";
+            break;
+        }
+
+        $this->cardModel->deleteCard($id);
+        $this->view->showAdmin();
+
+        header("Location: " . BASE_URL . "admin/listCards");
+    }
+
+    function listCards() {
+        $cards = $this->cardModel->getAllCards();
+        $this->view->listCards($cards);
     }
 }
