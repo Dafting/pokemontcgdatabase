@@ -13,7 +13,7 @@ html, body {
 }
 
 .smaller-image {
-    width: 50%;
+    height: 90vh;
 }
 
 .card-preview {
@@ -23,6 +23,7 @@ html, body {
 .tcg-symbol {
     font-family: PokemonTCGSymbols;
     text-transform: uppercase;
+    font-weight: normal;
 }
 
 .fill { 

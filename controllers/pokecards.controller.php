@@ -11,6 +11,11 @@ class PokeCardsController {
         $this->model = new PokeCardsModel();
         $this->view = new CardsView();
     }
+
+    function getACard($id) {
+        $card = $this->model->getACardByCardId($id);
+        return $card;
+    }
     
     function addPokeCard() {
         $type = $_REQUEST['type'];
@@ -34,6 +39,21 @@ class PokeCardsController {
         $pokedexInfo = $_REQUEST['pokedexInfo'];
         $card_id = $_REQUEST['card_id'];
         //$image = $_REQUEST['image'];
+
+        if(isset($attackName1)) {
+            $attackDesc1 = str_replace("{", "<span class='tcg-symbol'>", $attackDesc1);
+            $attackDesc1 = str_replace("}", "</span>", $attackDesc1);
+        }
+
+        if(isset($attackName2)) {
+            $attackDesc2 = str_replace("{", "<span class='tcg-symbol'>", $attackDesc2);
+            $attackDesc2 = str_replace("}", "</span>", $attackDesc2);
+        }
+
+        if(isset($pokePowerDesc)) {
+            $pokePowerDesc = str_replace("{", "<span class='tcg-symbol'>", $pokePowerDesc);
+            $pokePowerDesc = str_replace("}", "</span>", $pokePowerDesc);
+        }
     
         $this->model->insertCard($type, $hp, $stage, $evolvesFrom, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo, $card_id);
         header('Location: ' . BASE_URL);

@@ -46,6 +46,9 @@ switch ($params[0]) {
             }
         }
     break;
+    case 'viewCard':
+        $cardsController->showCard($params[1]);
+    break;
     case 'addNewCard':
         $cardsController->addCard();
     break;

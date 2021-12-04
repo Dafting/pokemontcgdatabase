@@ -83,4 +83,23 @@ class CardsController {
         $cards = $this->cardModel->getAllCards();
         $this->view->listCards($cards);
     }
+
+    function showCard($id) {
+        $card = $this->cardModel->getACard($id);
+        switch ($card[0]->type) {
+            case 1:
+                $cardDetails = $this->pokeModel->getACard($id);
+                break;
+            case 2:
+                $cardDetails = $this->trainerModel->getACard($id);
+                break;
+            case 3:
+                $cardDetails = $this->energyModel->getACard($id);
+                break;
+            default:
+                echo "Error";
+            break;
+        }
+        $this->view->showCard($card, $cardDetails);
+    }
 }

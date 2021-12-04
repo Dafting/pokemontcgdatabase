@@ -118,11 +118,11 @@
             <div class="row mt-3">
                 <div class="col">
                     <select name="retreatCost" class="form-control" placeholder="Costo de Retirada" data-toggle="tooltip" data-placement="top" title="Costo de Retirada">
-                        <option value="0">Coste de retirada - 0</option>
-                        <option value="1">Coste de retirada - 1</option>
-                        <option value="2">Coste de retirada - 2</option>
-                        <option value="3">Coste de retirada - 3</option>
-                        <option value="4">Coste de retirada - 4</option>
+                        <option value="">Coste de retirada - 0</option>
+                        <option value="c">Coste de retirada - 1</option>
+                        <option value="cc">Coste de retirada - 2</option>
+                        <option value="ccc">Coste de retirada - 3</option>
+                        <option value="cccc">Coste de retirada - 4</option>
                     </select>
                 </div>
                 <hr/>
