@@ -2,23 +2,23 @@
 	<div class="row justify-content-center fill">
 		<div class="col-md-4 d-flex align-items-center align-content-center flex-wrap justify-content-center">
 			<h3>
-				Acceso para administradores
+				Registro de usuario
 			</h3>
-			<form action="{BASE_URL}verify" method="POST" autocomplete="off">
+			<form action="{BASE_URL}register" method="POST" autocomplete="off">
 				<div class="form-group">
-					<label for="username">
+					<label>
 						Usuario
 					</label>
 					<input type="text" class="form-control" id="username" name="username" />
 				</div>
 				<div class="form-group">
-					<label for="password">
+					<label>
 						Password
 					</label>
-					<input type="password" class="form-control" id="password" name="password" />
+					<input type="password" class="form-control" id="password" name="password"/>
 				</div>
 				<button type="submit" class="btn btn-primary">
-					Ingresar
+					Registrarse
 				</button>
 			</form>
 		</div>

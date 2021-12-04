@@ -14,4 +14,20 @@ class LoginView {
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/login.tpl');
     }
+
+    function showLoginFail() {
+        //seteamos los parámetros para el alert
+        $this->smarty->assign('alertType', 'alert-danger');
+        $this->smarty->assign('alertTitle', 'Error en el login');
+        $this->smarty->assign('alertDescription', 'El usuario o la contraseña no son correctos');
+
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/alert.tpl');
+        $this->smarty->display('templates/login.tpl');
+    }
+
+    function showRegister() {
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/register.tpl');
+    }
 }

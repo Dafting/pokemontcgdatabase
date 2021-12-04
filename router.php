@@ -25,6 +25,10 @@ $loginController = new LoginController();
 $cardsView = new CardsView();
 
 switch ($params[0]) {
+    /* Este case es de pruebas, usar solo para tal fin. */
+    case 'testing':
+        $loginController->showLogin();
+    break;
     case 'admin':
         if(empty($params[1])){
             $cardsController->showAdmin();
@@ -67,8 +71,11 @@ switch ($params[0]) {
     case 'addNewEnergyCard':
         $energyCardController->addEnergyCard();
     break;
-    case 'testing':
-        $cardsView->showPrueba();
+    case 'register':
+        $loginController->registerUser();
+    break;
+    case 'verify':
+        $loginController->verifyLogin();
     break;
     default:
         $cardsController->showIndex();

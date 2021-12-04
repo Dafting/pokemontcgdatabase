@@ -154,5 +154,12 @@ class CardsController {
         // }
 
         header("Location: " . BASE_URL . "admin/listCards");
+
+        function parseImageField($image) {
+            if(substr($image, 0, 3) != "http") {
+                $image = BASE_URL . $image;
+            }
+            return $image;
+        }
     }
 }
