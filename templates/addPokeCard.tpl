@@ -15,7 +15,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="HP (PV o PI en cartas en español)" name="hp">
+                    <input type="text" class="form-control" placeholder="HP (PV o PI en cartas en español)" name="hp" required>
                 </div>
             </div>
             <div class="row mt-3">
@@ -127,7 +127,7 @@
                 </div>
                 <hr/>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Info Pokédex" name="pokedexInfo">
+                    <input type="text" class="form-control" placeholder="Info Pokédex" name="pokedexInfo" required>
                     <input type="hidden" value="{$card_id}" name="card_id">
                 </div>
             </div>
