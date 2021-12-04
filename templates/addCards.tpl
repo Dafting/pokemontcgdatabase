@@ -7,7 +7,7 @@
                     <input type="text" class="form-control" placeholder="Nombre" name="name" required>
                 </div>
                 <div class="col">
-                    <select name="type" class="form-control" placeholder="Tipo" data-toggle="tooltip" data-placement="top" title="Tipo de carta">
+                    <select name="type" class="form-control" placeholder="Tipo" data-toggle="tooltip" data-placement="top" title="Tipo de carta" id="card-type">
                         <option value="1">Pokémon</option>
                         <option value="2">Entrenador</option>
                         <option value="3">Energía</option>

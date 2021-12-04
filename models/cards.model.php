@@ -39,8 +39,8 @@ class CardsModel {
         $query->execute(['id' => $id]);
     }
 
-    function updateCard($id, $name, $type, $expansion, $expNumber){
-        $query = $this->db->prepare('UPDATE cards SET name = :name, type = :type, expansion = :expansion, expNumber = :expNumber WHERE id = :id');
-        $query->execute(['id' => $id, 'name' => $name, 'type' => $type, 'expansion' => $expansion, 'expNumber' => $expNumber]);
+    function updateCard($id, $name, $type, $rarity, $expansion, $expNumber){
+        $query = $this->db->prepare('UPDATE cards SET name = :name, type = :type, rarity = :rarity, expansion = :expansion, expNumber = :expNumber WHERE id = :id');
+        $query->execute(['id' => $id, 'name' => $name, 'type' => $type, 'rarity' => $rarity, 'expansion' => $expansion, 'expNumber' => $expNumber]);
     }
 }

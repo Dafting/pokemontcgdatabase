@@ -40,6 +40,9 @@ switch ($params[0]) {
                 case 'deleteCard':
                     $cardsController->deleteCard($params[2]);
                 break;
+                case 'editCard':
+                    $cardsController->showEditCard($params[2]);
+                break;
                 default:
                     $cardsController->showAdmin();
                 break;
@@ -48,6 +51,9 @@ switch ($params[0]) {
     break;
     case 'viewCard':
         $cardsController->showCard($params[1]);
+    break;
+    case 'editCard':
+        $cardsController->editCard($params[1]);
     break;
     case 'addNewCard':
         $cardsController->addCard();

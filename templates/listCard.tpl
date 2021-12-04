@@ -4,7 +4,7 @@
 			<div class="card">
 				<div class="card-body">
 					<p class="card-text">
-						{$cardName} - {$cardType} - {$cardRarity} - {$cardExpansion} <a href="editCard/{$cardId}" class="btn btn-info" type="button">Editar carta</a><a href="deleteCard/{$cardId}" class="btn btn-danger" type="button">Eliminar carta</a><a href="{BASE_URL}viewCard/{$cardId}" class="btn btn-primary" type="button">Ver carta</a>
+						{$cardId} - {$cardName} - {$cardType} - {$cardRarity} - {$cardExpansion} <a href="editCard/{$cardId}" class="btn btn-info" type="button">Editar carta</a><a href="deleteCard/{$cardId}" class="btn btn-danger" type="button">Eliminar carta</a><a href="{BASE_URL}viewCard/{$cardId}" class="btn btn-primary" type="button">Ver carta</a>
 					</p>
 				</div>
 			</div>

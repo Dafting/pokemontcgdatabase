@@ -53,6 +53,7 @@ class CardsView {
         echo('<h3 class="mt-2 mb-2">Lista de cartas en la base de datos</h3>');
         foreach ($cards as $card) {
             $this->smarty->assign('cardName', $card->name);
+            $this->smarty->assign('cardId', $card->id);
             switch ($card->type) {
                 case '1':
                     $this->smarty->assign('cardType', 'Pokémon');
@@ -172,5 +173,45 @@ class CardsView {
 
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/showCard.tpl');
+    }
+
+    function showEditCard($card, $cardDetails) {
+        $this->smarty->assign('cardId', $card[0]->id);
+        $this->smarty->assign('cardName', $card[0]->name);
+        $this->smarty->assign('cardType', $card[0]->type);
+        $this->smarty->assign('cardRarity', $card[0]->rarity);
+        $this->smarty->assign('expansion', $card[0]->expansion);
+        $this->smarty->assign('expNumber', $card[0]->expNumber);
+
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/editCards.tpl');
+    }
+
+    function showConfirmEditCard($id, $oldCardType, $newCardType) {
+        switch ($oldCardType) {
+            case '1':
+                $this->smarty->assign('oldCardType', 'Pokémon');
+                break;
+            case '2':
+                $this->smarty->assign('oldCardType', 'Entrenador');
+                break;
+            case '3':
+                $this->smarty->assign('oldCardType', 'Energía');
+                break;
+        }
+        switch ($newCardType) {
+            case '1':
+                $this->smarty->assign('newCardType', 'Pokémon');
+                break;
+            case '2':
+                $this->smarty->assign('newCardType', 'Entrenador');
+                break;
+            case '3':
+                $this->smarty->assign('newCardType', 'Energía');
+                break;
+        }
+        $this->smarty->assign('id', $id);
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/confirmEditCard.tpl');
     }
 }
