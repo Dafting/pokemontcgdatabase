@@ -38,7 +38,6 @@ class PokeCardsController {
         $retreatCost = $_REQUEST['retreatCost'];
         $pokedexInfo = $_REQUEST['pokedexInfo'];
         $card_id = $_REQUEST['card_id'];
-        //$image = $_REQUEST['image'];
 
         if(isset($attackName1)) {
             $attackDesc1 = str_replace("{", "<span class='tcg-symbol'>", $attackDesc1);

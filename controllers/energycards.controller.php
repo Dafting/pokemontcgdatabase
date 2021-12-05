@@ -17,8 +17,7 @@ class EnergyCardsController {
         $special = $_REQUEST['special'];
         $description = $_REQUEST['description'];
         $card_id = $_REQUEST['card_id'];
-        //$image = $_REQUEST['image'];
-    
+
         $this->model->insertCard($type, $special, $description, $card_id);
         header('Location: ' . BASE_URL);
     }
