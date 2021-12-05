@@ -1,13 +1,13 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col mt-2 mr-2 d-flex justify-content-center">
-			<img class="smaller-image" alt="Bootstrap Image Preview" src="{BASE_URL}img/cards/large/0.jpg" />
+			<img class="smaller-image" alt="Bootstrap Image Preview" src="{BASE_URL}img/cards/0.jpg" />
 		</div>
 		<div class="col mt-2 d-flex flex-column align-self-center">
 			<h3>
-				{$pokemonName} - {$expansionName}
+				{$cardName} - {$expansionName}
 			</h3>
-			<dl>
+			<dl class="{$pokemonCard}">
 				<dt>
 					{$stage} - Evoluciona de {$evolvesFrom} - {$hp} HP - Tipo <span class="tcg-symbol">{$typeSymbol}</span>
 				</dt>
@@ -38,6 +38,18 @@
                 <hr/>
 				<dd class='font-italic'>
 					{$pokedexText}
+				</dd>
+			</dl>
+			<dl class="{$trainerCard}">
+                <hr/>
+				<dd>
+					{$trainerDescription}
+				</dd>
+			</dl>
+			<dl class="{$energyCard}">
+                <hr/>
+				<dd>
+					{$energyDescription}
 				</dd>
 			</dl>
 		</div>
