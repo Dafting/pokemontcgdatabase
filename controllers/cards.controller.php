@@ -36,6 +36,46 @@ class CardsController {
         $expansion = $_REQUEST['expansion'];
         $expNumber = $_REQUEST['expNumber'];
         $rarity = $_REQUEST['rarity'];
+        /*$image = $_FILES['imageToUpload']['name'];
+
+        if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
+            $target_dir = "img/cards/";
+            $target_file = $target_dir . basename($_FILES["imageToUpload"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            // Check if image file is a actual image or fake image
+            if(isset($_POST["submit"])) {
+                $check = getimagesize($_FILES["imageToUpload"]["tmp_name"]);
+                if($check !== false) {
+                    echo "File is an image - " . $check["mime"] . ".";
+                    $uploadOk = 1;
+                } else {
+                    echo "File is not an image.";
+                    $uploadOk = 0;
+                }
+            }
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+            // Check file size
+            if ($_FILES["imageToUpload"]["size"] > 500000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file)) {
+                    echo "The file ". basename( $_FILES["imageToUpload"]["name"]). " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
+        }*/
     
         $card_id = $this->cardModel->insertCard($name, $type, $expansion, $expNumber, $rarity);
 
@@ -50,7 +90,7 @@ class CardsController {
                 $this->view->showAddEnergyCard($card_id);
                 break;
             default:
-                echo "Error";
+                echo "Error in addCard()";
             break;
         }
     }
@@ -69,7 +109,7 @@ class CardsController {
                 $this->energyModel->deleteCard($id);
                 break;
             default:
-                echo "Error";
+                echo "Error in deleteCard()";
             break;
         }
 
@@ -97,7 +137,8 @@ class CardsController {
                 $cardDetails = $this->energyModel->getACard($id);
                 break;
             default:
-                echo "Error";
+                echo "Error in showCard()";
+                var_dump($card);
             break;
         }
         $this->view->showCard($card, $cardDetails);
@@ -116,7 +157,7 @@ class CardsController {
                 $cardDetails = $this->energyModel->getACard($id);
                 break;
             default:
-                echo "Error";
+                echo "Error in showEditCard()";
             break;
         }
         $this->view->showEditCard($card, $cardDetails);
