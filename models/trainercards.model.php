@@ -17,9 +17,9 @@ class TrainerCardsModel {
         return $cards;
     }
 
-    function getACard($id) {
-        $query = $this->db->prepare('SELECT * FROM trainer_card WHERE id = :id');
-        $query->execute(['id' => $id]);
+    function getACard($card_id) {
+        $query = $this->db->prepare('SELECT * FROM trainer_card WHERE card_id = :card_id');
+        $query->execute(['card_id' => $card_id]);
 
         $singleCard = $query->fetchAll(PDO::FETCH_OBJ);
 
