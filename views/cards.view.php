@@ -94,8 +94,47 @@ class CardsView {
 
     function ShowCard($card, $cardDetails) {
 
-        $this->smarty->assign('pokemonName', $card[0]->name);
+        $this->smarty->assign('cardName', $card[0]->name);
         $this->smarty->assign('expansionName', $card[0]->expansion);
+
+        switch ($card[0]->type) {
+            case '1': // Pokémon
+                $this->smarty->assign('trainerCard', 'd-none');
+                $this->smarty->assign('energyCard', 'd-none');
+                if(isset($cardDetails[0]->pokePowerDesc)) {
+                    $cardDetails[0]->pokePowerDesc = str_replace("{", "<span class='tcg-symbol'>", $cardDetails[0]->pokePowerDesc);
+                    $cardDetails[0]->pokePowerDesc = str_replace("}", "</span>", $cardDetails[0]->pokePowerDesc);
+                }
+                if(isset($cardDetails[0]->attackDesc1)) {
+                    $cardDetails[0]->attackDesc1 = str_replace("{", "<span class='tcg-symbol'>", $cardDetails[0]->attackDesc1);
+                    $cardDetails[0]->attackDesc1 = str_replace("}", "</span>", $cardDetails[0]->attackDesc1);
+                }
+                if(isset($cardDetails[0]->attackDesc2)) {
+                    $cardDetails[0]->attackDesc2 = str_replace("{", "<span class='tcg-symbol'>", $cardDetails[0]->attackDesc2);
+                    $cardDetails[0]->attackDesc2 = str_replace("}", "</span>", $cardDetails[0]->attackDesc2);
+                }
+                break;
+            case '2': // Entrenador
+                $this->smarty->assign('pokemonCard', 'd-none');
+                $this->smarty->assign('energyCard', 'd-none');
+                if(isset($cardDetails[0]->description)) {
+                    $cardDetails[0]->description = str_replace("{", "<span class='tcg-symbol'>", $cardDetails[0]->description);
+                    $cardDetails[0]->description = str_replace("}", "</span>", $cardDetails[0]->description);
+                }
+                $this->smarty->assign('trainerDescription', $cardDetails[0]->description);
+                break;
+            case '3': // Energía
+                $this->smarty->assign('trainerCard', 'd-none');
+                $this->smarty->assign('pokemonCard', 'd-none');
+                if(isset($cardDetails[0]->description)) {
+                    $cardDetails[0]->description = str_replace("{", "<span class='tcg-symbol'>", $cardDetails[0]->description);
+                    $cardDetails[0]->description = str_replace("}", "</span>", $cardDetails[0]->description);
+                }
+                $this->smarty->assign('energyDescription', $cardDetails[0]->description);
+                break;
+        }
+
+        //TODO: Softcodear esto para que se traiga el nombre de la expansión desde la base de datos
 
         switch ($card[0]->expansion) {
             case '1':
@@ -109,67 +148,73 @@ class CardsView {
                 break;
         }
 
-        switch ($cardDetails[0]->stage) {
-            case '0':
-                $this->smarty->assign('stage', 'Pokémon Básico');
-                break;
-            case '1':
-                $this->smarty->assign('stage', 'Etapa 1');
-                break;
-            case '2':
-                $this->smarty->assign('stage', 'Etapa 2');
-                break;
-        }
+        //Acá empieza la declaración de variables para mostrar los datos de la carta en caso de que sea un Pokémon
 
-        $this->smarty->assign('evolvesFrom', $cardDetails[0]->evolvesFrom);
-        $this->smarty->assign('hp', $cardDetails[0]->hp);
-        $this->smarty->assign('typeSymbol', $cardDetails[0]->type);
+        if ($card[0]->type == '1') {
+            switch ($cardDetails[0]->stage) {
+                case '0':
+                    $this->smarty->assign('stage', 'Pokémon Básico');
+                    break;
+                case '1':
+                    $this->smarty->assign('stage', 'Etapa 1');
+                    break;
+                case '2':
+                    $this->smarty->assign('stage', 'Etapa 2');
+                    break;
+            }
 
-        // Datos del PokePower. Si no tiene, no se muestra nada.
-        if (!isset($cardDetails[0]->pokePowerName)) {
-            $this->smarty->assign('pokePowerHidden', 'd-none');
-        } else {
-            $this->smarty->assign('pokePowerHidden', '');
-        }
-        $this->smarty->assign('pokePowerName', $cardDetails[0]->pokePowerName);
-        $this->smarty->assign('pokePowerDescription', $cardDetails[0]->pokePowerDesc);
+            $this->smarty->assign('evolvesFrom', $cardDetails[0]->evolvesFrom);
+            $this->smarty->assign('hp', $cardDetails[0]->hp);
+            $this->smarty->assign('typeSymbol', $cardDetails[0]->type);
 
-        //Datos del primer ataque. Si no tiene, no se muestra nada.
-        if ($cardDetails[0]->attackName1 == '') {
-            $this->smarty->assign('attackHidden1', 'd-none');
-        } else {
-            $this->smarty->assign('attackHidden1', '');
-        }
-        $this->smarty->assign('attackName1', $cardDetails[0]->attackName1);
-        $this->smarty->assign('attackDesc1', $cardDetails[0]->attackDesc1);
-        $this->smarty->assign('attackDamage1', $cardDetails[0]->attackDamage1);
-        $this->smarty->assign('attackEnergies1', $cardDetails[0]->attackEnergies1);
+            // Datos del PokePower. Si no tiene, no se muestra nada.
+            if (!isset($cardDetails[0]->pokePowerName)) {
+                $this->smarty->assign('pokePowerHidden', 'd-none');
+            } else {
+                $this->smarty->assign('pokePowerHidden', '');
+            }
+            $this->smarty->assign('pokePowerName', $cardDetails[0]->pokePowerName);
+            $this->smarty->assign('pokePowerDescription', $cardDetails[0]->pokePowerDesc);
 
-        //Datos del segundo ataque. Si no tiene, no se muestra nada.
-        if ($cardDetails[0]->attackName2 == '') {
-            $this->smarty->assign('attackHidden2', 'd-none');
-        } else {
-            $this->smarty->assign('attackHidden2', '');
-        }
-        $this->smarty->assign('attackName2', $cardDetails[0]->attackName2);
-        $this->smarty->assign('attackDesc2', $cardDetails[0]->attackDesc2);
-        $this->smarty->assign('attackDamage2', $cardDetails[0]->attackDamage2);
-        $this->smarty->assign('attackEnergies2', $cardDetails[0]->attackEnergies2);
+            //Datos del primer ataque. Si no tiene, no se muestra nada.
+            if ($cardDetails[0]->attackName1 == '') {
+                $this->smarty->assign('attackHidden1', 'd-none');
+            } else {
+                $this->smarty->assign('attackHidden1', '');
+            }
+            $this->smarty->assign('attackName1', $cardDetails[0]->attackName1);
+            $this->smarty->assign('attackDesc1', $cardDetails[0]->attackDesc1);
+            $this->smarty->assign('attackDamage1', $cardDetails[0]->attackDamage1);
+            $this->smarty->assign('attackEnergies1', $cardDetails[0]->attackEnergies1);
 
-        if ($cardDetails[0]->weakness == '0') {
-            $this->smarty->assign('weakness', '');
-        } else {
-            $this->smarty->assign('weakness', $cardDetails[0]->weakness);
-        }
-        
-        if ($cardDetails[0]->resistance == '0') {
-            $this->smarty->assign('resistance', '');
-        } else {
-            $this->smarty->assign('resistance', $cardDetails[0]->resistance);
-        }
+            //Datos del segundo ataque. Si no tiene, no se muestra nada.
+            if ($cardDetails[0]->attackName2 == '') {
+                $this->smarty->assign('attackHidden2', 'd-none');
+            } else {
+                $this->smarty->assign('attackHidden2', '');
+            }
+            $this->smarty->assign('attackName2', $cardDetails[0]->attackName2);
+            $this->smarty->assign('attackDesc2', $cardDetails[0]->attackDesc2);
+            $this->smarty->assign('attackDamage2', $cardDetails[0]->attackDamage2);
+            $this->smarty->assign('attackEnergies2', $cardDetails[0]->attackEnergies2);
 
-        $this->smarty->assign('retreatCost', $cardDetails[0]->retreatCost);
-        $this->smarty->assign('pokedexText', $cardDetails[0]->pokedexInfo);
+            if ($cardDetails[0]->weakness == '0') {
+                $this->smarty->assign('weakness', '');
+            } else {
+                $this->smarty->assign('weakness', $cardDetails[0]->weakness);
+            }
+
+            if ($cardDetails[0]->resistance == '0') {
+                $this->smarty->assign('resistance', '');
+            } else {
+                $this->smarty->assign('resistance', $cardDetails[0]->resistance);
+            }
+
+            $this->smarty->assign('retreatCost', $cardDetails[0]->retreatCost);
+            $this->smarty->assign('pokedexText', $cardDetails[0]->pokedexInfo);
+        }
+        // Descripción de Entrenadores y Energías
+        // Lo hago así para no asignar variables que no se van a usar.
 
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/showCard.tpl');
