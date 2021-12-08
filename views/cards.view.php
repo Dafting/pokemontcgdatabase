@@ -10,11 +10,26 @@ class CardsView {
         $this->smarty = new Smarty();
     }
     
-    function showIndex() {
-        // $this->smarty->assign('cards', $cards);
+    function showIndex($lastCards) {
+        /*for ($key = 0; $key <= count($lastCards); $key++) {
+            $this->smarty->assign('cardName' . $key, $lastCards[$key]->name);
+            $this->smarty->assign('cardExp' . $key, $lastCards[$key]->expansion);
+            $this->smarty->assign('cardImageURL' . $key, $lastCards[$key]->image);
+            $this->smarty->assign('cardURL' . $key, $lastCards[$key]->id);
+        }*/
+
+        foreach ($lastCards as $key=>$card) {
+            $this->smarty->assign('cardName' . $key, $card->name);
+            $this->smarty->assign('cardExp' . $key, $card->expansion);
+            $this->smarty->assign('cardImageURL' . $key, $card->image);
+            $this->smarty->assign('cardURL' . $key, $card->id);
+        }
+
+        unset($card);
+
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/intro.tpl');
-        //$this->smarty->display('templates/showCards.tpl');
+        $this->smarty->display('templates/lastCards.tpl');
     }
 
     function showAddCards() {
@@ -54,6 +69,15 @@ class CardsView {
         foreach ($cards as $card) {
             $this->smarty->assign('cardName', $card->name);
             $this->smarty->assign('cardId', $card->id);
+
+            if (isset($card->error)) {
+                $this->smarty->assign('cardError', $card->error);
+                $this->smarty->assign('cardErrorMessage', 'CARTA TRUNCADA');
+            } else {
+                $this->smarty->assign('cardError', '');
+                $this->smarty->assign('cardErrorMessage', '');
+            }
+
             switch ($card->type) {
                 case '1':
                     $this->smarty->assign('cardType', 'Pokémon');
@@ -65,6 +89,7 @@ class CardsView {
                     $this->smarty->assign('cardType', 'Energía');
                     break;
             }
+
             switch ($card->rarity) {
                 case '1':
                     $this->smarty->assign('cardRarity', 'Común');
@@ -76,6 +101,8 @@ class CardsView {
                     $this->smarty->assign('cardRarity', 'Rara');
                     break;
             }
+
+            //TODO: Pedir esta info a la BD
             switch ($card->expansion) {
                 case '1':
                     $this->smarty->assign('cardExpansion', 'Base');
@@ -87,6 +114,7 @@ class CardsView {
                     $this->smarty->assign('cardExpansion', 'Fósil');
                     break;
             }
+
             $this->smarty->assign('cardId', $card->id);
             $this->smarty->display('templates/listCard.tpl');
         }
@@ -96,6 +124,7 @@ class CardsView {
 
         $this->smarty->assign('cardName', $card[0]->name);
         $this->smarty->assign('expansionName', $card[0]->expansion);
+        $this->smarty->assign('cardURL', $card[0]->image);
 
         switch ($card[0]->type) {
             case '1': // Pokémon
@@ -230,6 +259,46 @@ class CardsView {
 
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/editCards.tpl');
+    }
+
+    function showEditPokeCard($card_id, $type, $hp, $stage, $evolvesFrom, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo) {
+        $this->smarty->assign('card_id', $card_id);
+        $this->smarty->assign('type', $type);
+        $this->smarty->assign('hp', $hp);
+        $this->smarty->assign('stage', $stage);
+        $this->smarty->assign('evolvesFrom', $evolvesFrom);
+        $this->smarty->assign('attackName1', $attackName1);
+        $this->smarty->assign('attackDesc1', $attackDesc1);
+        $this->smarty->assign('attackDamage1', $attackDamage1);
+        $this->smarty->assign('attackEnergies1', $attackEnergies1);
+        $this->smarty->assign('attackName2', $attackName2);
+        $this->smarty->assign('attackDesc2', $attackDesc2);
+        $this->smarty->assign('attackDamage2', $attackDamage2);
+        $this->smarty->assign('attackEnergies2', $attackEnergies2);
+        $this->smarty->assign('hasPokePower', $hasPokePower);
+        $this->smarty->assign('pokePowerName', $pokePowerName);
+        $this->smarty->assign('pokePowerDesc', $pokePowerDesc);
+        $this->smarty->assign('weakness', $weakness);
+        $this->smarty->assign('resistance', $resistance);
+        $this->smarty->assign('retreatCost', $retreatCost);
+        $this->smarty->assign('pokedexInfo', $pokedexInfo);
+
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/editPokeCard.tpl');
+    }
+
+    function showEditTrainerCard($card_id) {
+        $this->smarty->assign('card_id', $card_id);
+
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/editTrainerCard.tpl');
+    }
+
+    function showEditEnergyCard($card_id) {
+        $this->smarty->assign('card_id', $card_id);
+
+        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/editEnergyCard.tpl');
     }
 
     function showConfirmEditCard($id, $oldCardType, $newCardType) {

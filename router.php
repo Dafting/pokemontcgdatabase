@@ -59,6 +59,9 @@ switch ($params[0]) {
     case 'editCard':
         $cardsController->editCard($params[1]);
     break;
+    case 'editPokemonCard':
+        $pokeCardController->editPokeCard($params[1]);
+    break;
     case 'addNewCard':
         $cardsController->addCard();
     break;

@@ -50,18 +50,18 @@
             <hr/>
             <div class="row mt-3">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Ataque 2 (Daño)" name="attackDamage2">
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Ataque 2 (Energías)" name="attackEnergies2" data-toggle="tooltip" data-placement="top" title="Se debe ingresar los caracteres correspondientes a cada tipo. Por ejemplo: Si un ataque usa 3 energías tipo agua, se debe colocar 'www'.">
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">
                     <input type="text" class="form-control" placeholder="Ataque 2 (Nombre)" name="attackName2">
                 </div>
                 <div class="col">
                     <input type="text" class="form-control" placeholder="Ataque 2 (Descripción)" name="attackDesc2">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Ataque 2 (Daño)" name="attackDamage2">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Ataque 2 (Energías)" name="attackEnergies2" data-toggle="tooltip" data-placement="top" title="Se debe ingresar los caracteres correspondientes a cada tipo. Por ejemplo: Si un ataque usa 3 energías tipo agua, se debe colocar 'www'.">
                 </div>
             </div>
             <hr/>

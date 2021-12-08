@@ -26,10 +26,10 @@ class CardsModel {
         return $singleCard;
     }
 
-    function insertCard($name, $type, $expansion, $expNumber, $rarity){
+    function insertCard($name, $type, $expansion, $expNumber, $rarity, $imageDir){
     
-        $query = $this->db->prepare('INSERT INTO cards (name, type, expansion, expNumber, rarity) VALUES (?, ?, ?, ?, ?)');
-        $query->execute([$name, $type, $expansion, $expNumber, $rarity]);
+        $query = $this->db->prepare('INSERT INTO cards (name, type, expansion, expNumber, rarity, image) VALUES (?, ?, ?, ?, ?, ?)');
+        $query->execute([$name, $type, $expansion, $expNumber, $rarity, $imageDir]);
     
         return $this->db->lastInsertId();
     }

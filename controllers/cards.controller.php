@@ -4,6 +4,7 @@ include_once('models/cards.model.php');
 include_once('models/energycards.model.php');
 include_once('models/pokecards.model.php');
 include_once('models/trainercards.model.php');
+include_once('models/expansions.model.php');
 include_once('views/cards.view.php');
 
 class CardsController {
@@ -15,11 +16,25 @@ class CardsController {
         $this->pokeModel = new PokecardsModel();
         $this->energyModel = new EnergycardsModel();
         $this->trainerModel = new TrainercardsModel();
+        $this->expansionModel = new ExpansionsModel();
         $this->view = new CardsView();
     }
 
     function showIndex() {
-        $this->view->showIndex();
+        $lastCards = $this->cardModel->getAllCards();
+        $lastCards = array_reverse($lastCards);
+
+        $expansions = $this->expansionModel->getAllExpansions();
+
+        foreach($lastCards as $key=>$card) {
+            foreach($expansions as $key2=>$expansion) {
+                if($card->expansion == $expansions[$key2]->id) {
+                    $card->expansion = $expansions[$key2]->name;
+                }
+            }
+        }
+
+        $this->view->showIndex($lastCards);
     }
 
     function showAddCards() {
@@ -36,48 +51,48 @@ class CardsController {
         $expansion = $_REQUEST['expansion'];
         $expNumber = $_REQUEST['expNumber'];
         $rarity = $_REQUEST['rarity'];
-        /*$image = $_FILES['imageToUpload']['name'];
+        $image = $_FILES['input_name']['name'];
 
         if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
-            $target_dir = "img/cards/";
-            $target_file = $target_dir . basename($_FILES["imageToUpload"]["name"]);
+            $target_dir = "img/cards/" . uniqid("", true);
+            $target_file = $target_dir . basename($_FILES["input_name"]["name"]);
             $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
             // Check if image file is a actual image or fake image
             if(isset($_POST["submit"])) {
-                $check = getimagesize($_FILES["imageToUpload"]["tmp_name"]);
+                $check = getimagesize($_FILES["input_name"]["tmp_name"]);
                 if($check !== false) {
-                    echo "File is an image - " . $check["mime"] . ".";
+                    // echo "File is an image - " . $check["mime"] . ".";
                     $uploadOk = 1;
                 } else {
-                    echo "File is not an image.";
+                    // echo "File is not an image.";
                     $uploadOk = 0;
                 }
             }
             // Check if file already exists
             if (file_exists($target_file)) {
-                echo "Sorry, file already exists.";
+                // echo "Sorry, file already exists.";
                 $uploadOk = 0;
             }
             // Check file size
-            if ($_FILES["imageToUpload"]["size"] > 500000) {
-                echo "Sorry, your file is too large.";
+            if ($_FILES["input_name"]["size"] > 500000) {
+                // echo "Sorry, your file is too large.";
                 $uploadOk = 0;
             }
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
+                // echo "Sorry, your file was not uploaded.";
             // if everything is ok, try to upload file
             } else {
-                if (move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file)) {
-                    echo "The file ". basename( $_FILES["imageToUpload"]["name"]). " has been uploaded.";
+                if (move_uploaded_file($_FILES["input_name"]["tmp_name"], $target_file)) {
+                    // echo "The file ". basename( $_FILES["input_name"]["name"]). " has been uploaded.";
                 } else {
-                    echo "Sorry, there was an error uploading your file.";
+                    // echo "Sorry, there was an error uploading your file.";
                 }
             }
-        }*/
+        }
     
-        $card_id = $this->cardModel->insertCard($name, $type, $expansion, $expNumber, $rarity);
+        $card_id = $this->cardModel->insertCard($name, $type, $expansion, $expNumber, $rarity, $target_file);
 
         switch ($type) {
             case 1:
@@ -121,14 +136,46 @@ class CardsController {
 
     function listCards() {
         $cards = $this->cardModel->getAllCards();
+        foreach($cards as $card) {
+            switch($card->type) {
+                case 1:
+                    $cardDetails = $this->pokeModel->getACardByCardId($card->id);
+                    if ($cardDetails == null) {
+                        $card->error = "bg-danger";
+                    }
+                    break;
+                case 2:
+                    $cardDetails = $this->trainerModel->getCard($card->id);
+                    if ($cardDetails == null) {
+                        $card->error = "bg-danger";
+                    }
+                    break;
+                case 3:
+                    $cardDetails = $this->energyModel->getCard($card->id);
+                    if ($cardDetails == null) {
+                        $card->error = "bg-danger";
+                    }
+                    break;
+                default:
+                    echo "Error in listCards()";
+                break;
+            }
+        }
         $this->view->listCards($cards);
     }
 
     function showCard($id) {
         $card = $this->cardModel->getACard($id);
+        if ($card == null) {
+            //TODO: Hacer un mejor error
+            echo ("No se ha encontrado la carta");
+            // $this->view->showError("No se ha encontrado la carta");
+            return;
+        }
+
         switch ($card[0]->type) {
             case 1:
-                $cardDetails = $this->pokeModel->getACard($id);
+                $cardDetails = $this->pokeModel->getACardByCardId($id);
                 break;
             case 2:
                 $cardDetails = $this->trainerModel->getACard($id);
@@ -138,8 +185,12 @@ class CardsController {
                 break;
             default:
                 echo "Error in showCard()";
-                var_dump($card);
             break;
+        }
+
+        if ($cardDetails == null) {
+            echo ("Carta trunca! Hay información perdida. Contacte al administrador.");
+            return;
         }
         $this->view->showCard($card, $cardDetails);
     }
@@ -164,11 +215,16 @@ class CardsController {
     }
 
     function editCard($id) {
-        $name = $_REQUEST['name'];
-        $newType = $_REQUEST['type'];
-        $expansion = $_REQUEST['expansion'];
-        $expNumber = $_REQUEST['expNumber'];
-        $rarity = $_REQUEST['rarity'];
+
+        if (isset($_REQUEST['name'])) {
+            $name = $_REQUEST['name'];
+            $newType = $_REQUEST['type'];
+            $expansion = $_REQUEST['expansion'];
+            $expNumber = $_REQUEST['expNumber'];
+            $rarity = $_REQUEST['rarity'];
+        } else {
+            die("Error: No se han recibido los datos");
+        }
 
         $oldType = $this->cardModel->getACard($id)[0]->type;
 
@@ -177,30 +233,24 @@ class CardsController {
             return;
         }
 
-        $this->cardModel->updateCard($id, $name, $type, $rarity, $expansion, $expNumber);
+        $this->cardModel->updateCard($id, $name, $newType, $rarity, $expansion, $expNumber);
 
-        // switch ($type) {
-        //     case 1:
-        //         $this->view->showAddPokeCard($id);
-        //         break;
-        //     case 2:
-        //         $this->view->showAddTrainerCard($id);
-        //         break;
-        //     case 3:
-        //         $this->view->showAddEnergyCard($id);
-        //         break;
-        //     default:
-        //         echo "Error";
-        //     break;
-        // }
-
-        header("Location: " . BASE_URL . "admin/listCards");
-
-        function parseImageField($image) {
-            if(substr($image, 0, 3) != "http") {
-                $image = BASE_URL . $image;
-            }
-            return $image;
+        switch ($newType) {
+            case 1:
+                $card = $this->pokeModel->getACardByCardId($id);
+                $this->view->showEditPokeCard($id, $card[0]->type, $card[0]->hp, $card[0]->stage, $card[0]->evolvesFrom, $card[0]->attackName1, $card[0]->attackDesc1, $card[0]->attackDamage1, $card[0]->attackEnergies1, $card[0]->attackName2, $card[0]->attackDesc2, $card[0]->attackDamage2, $card[0]->attackEnergies2, $card[0]->hasPokePower, $card[0]->pokePowerName, $card[0]->pokePowerDesc, $card[0]->weakness, $card[0]->resistance, $card[0]->retreatCost, $card[0]->pokedexInfo);
+                break;
+            case 2:
+                $this->view->showEditTrainerCard($id);
+                break;
+            case 3:
+                $this->view->showEditEnergyCard($id);
+                break;
+            default:
+                echo "Error";
+            break;
         }
+
+        // header("Location: " . BASE_URL . "admin/listCards");
     }
 }

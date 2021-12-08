@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col mt-2 mr-2 d-flex justify-content-center">
-			<img class="smaller-image" alt="Bootstrap Image Preview" src="{BASE_URL}img/cards/0.jpg" />
+			<img class="smaller-image" alt="Bootstrap Image Preview" src="{BASE_URL}{$cardURL}" />
 		</div>
 		<div class="col mt-2 d-flex flex-column align-self-center">
 			<h3>
@@ -9,28 +9,29 @@
 			</h3>
 			<dl class="{$pokemonCard}">
 				<dt>
-					{$stage} - Evoluciona de {$evolvesFrom} - {$hp} HP - Tipo <span class="tcg-symbol">{$typeSymbol}</span>
+					{$stage}{if $evolvesFrom == ''}{else} - Evoluciona de {$evolvesFrom}{/if} - {$hp} HP - Tipo <span class="tcg-symbol">{$typeSymbol}</span>
 				</dt>
-                <hr/>
+                {if $pokePowerName == ''}{else}<hr/>
 				<dt class="{$pokePowerHidden}">
 					Poder Pokémon: {$pokePowerName}
-				</dt>
+				</dt>{/if}
 				<dd class="{$pokePowerHidden}">
 					{$pokePowerDescription}
 				</dd>
                 <hr/>
 				<dt class="{$attackHidden1}">
-					{$attackName1} - <span class="tcg-symbol">{$attackEnergies1}</span> - {$attackDamage1}
+					{$attackName1} - <span class="tcg-symbol">{$attackEnergies1}</span>{if $attackDamage1 == ''}{else} - {$attackDamage1}{/if}
 				</dt>
 				<dd class="{$attackHidden1}">
 					{$attackDesc1}
 				</dd>
+				{if $attackName2 == ''}{else}<hr/>
 				<dt class="{$attackHidden2}">
-					{$attackName2} - <span class="tcg-symbol">{$attackEnergies2}</span> - {$attackDamage2}
+					{$attackName2} - <span class="tcg-symbol">{$attackEnergies2}</span>{if $attackDamage2 == ''}{else} - {$attackDamage2}{/if}
 				</dt>
 				<dd class="{$attackHidden2}">
 					{$attackDesc2}
-				</dd>
+				</dd>{/if}
                 <hr/>
 				<dd>
                     Debilidad: <span class="tcg-symbol">{$weakness}</span> - Resistencia: <span class="tcg-symbol">{$resistance}</span> - Costo de Retirada: <span class="tcg-symbol">{$retreatCost}</span>

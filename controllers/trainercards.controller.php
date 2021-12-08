@@ -16,11 +16,6 @@ class TrainerCardsController {
         $description = $_REQUEST['description'];
         $card_id = $_REQUEST['card_id'];
 
-        if(isset($description)) {
-            $description = str_replace("{", "<span class='tcg-symbol'>", $description);
-            $description = str_replace("}", "</span>", $description);
-        }
-
         $this->model->insertCard($description, $card_id);
         header('Location: ' . BASE_URL);
     }
