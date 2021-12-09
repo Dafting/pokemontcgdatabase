@@ -18,7 +18,7 @@ class CardsModel {
     }
 
     function getAllCardsByType($type) {
-        $query = $this->db->prepare('SELECT * FROM cards WHERE type = :type');
+        $query = $this->db->prepare('SELECT * FROM cards WHERE type = :type ORDER BY `cards`.`expansion` ASC, `cards`.`expNumber` ASC');
         $query->execute([':type' => $type]);
 
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
@@ -27,7 +27,7 @@ class CardsModel {
     }
 
     function getAllCardsByExpansion($expansion) {
-        $query = $this->db->prepare('SELECT * FROM cards WHERE expansion = :expansion');
+        $query = $this->db->prepare('SELECT * FROM cards WHERE expansion = :expansion ORDER BY `cards`.`expansion` ASC, `cards`.`expNumber` ASC');
         $query->execute([':expansion' => $expansion]);
 
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
