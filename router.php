@@ -76,6 +76,9 @@ switch ($params[0]) {
     case 'showAllCards':
         $cardsController->showAllCards();
     break;
+    case 'categorias':
+        $cardsController->showCardsByType($params[1]);
+    break;
     case 'register':
         $loginController->registerUser();
     break;

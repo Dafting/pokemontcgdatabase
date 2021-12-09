@@ -17,6 +17,15 @@ class CardsModel {
         return $cards;
     }
 
+    function getAllCardsByType($type) {
+        $query = $this->db->prepare('SELECT * FROM cards WHERE type = :type');
+        $query->execute([':type' => $type]);
+
+        $cards = $query->fetchAll(PDO::FETCH_OBJ);
+        
+        return $cards;
+    }
+
     function getACard($id) {
         $query = $this->db->prepare('SELECT * FROM cards WHERE id = :id');
         $query->execute(['id' => $id]);

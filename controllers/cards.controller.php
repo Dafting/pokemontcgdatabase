@@ -260,4 +260,27 @@ class CardsController {
         $expansions = $this->expansionModel->getAllExpansions();
         $this->view->showAllCards($cards, $expansions);
     }
+
+    function showCardsByType($type) {
+        switch($type) {
+            case 'pokemon':
+                $cards = $this->cardModel->getAllCardsByType(1);
+                $expansions = $this->expansionModel->getAllExpansions();
+                $this->view->showAllCards($cards, $expansions);
+                break;
+            case 'entrenador':
+                $cards = $this->cardModel->getAllCardsByType(2);
+                $expansions = $this->expansionModel->getAllExpansions();
+                $this->view->showAllCards($cards, $expansions);
+                break;
+            case 'energia':
+                $cards = $this->cardModel->getAllCardsByType(3);
+                $expansions = $this->expansionModel->getAllExpansions();
+                $this->view->showAllCards($cards, $expansions);
+                break;
+            default:
+                echo "Error in showCardsByType()";
+            break;
+        }
+    }
 }
