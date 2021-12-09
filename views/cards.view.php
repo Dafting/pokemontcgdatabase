@@ -11,13 +11,6 @@ class CardsView {
     }
     
     function showIndex($lastCards) {
-        /*for ($key = 0; $key <= count($lastCards); $key++) {
-            $this->smarty->assign('cardName' . $key, $lastCards[$key]->name);
-            $this->smarty->assign('cardExp' . $key, $lastCards[$key]->expansion);
-            $this->smarty->assign('cardImageURL' . $key, $lastCards[$key]->image);
-            $this->smarty->assign('cardURL' . $key, $lastCards[$key]->id);
-        }*/
-
         foreach ($lastCards as $key=>$card) {
             $this->smarty->assign('cardName' . $key, $card->name);
             $this->smarty->assign('cardExp' . $key, $card->expansion);
@@ -327,5 +320,27 @@ class CardsView {
         $this->smarty->assign('id', $id);
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/confirmEditCard.tpl');
+    }
+
+    function showAllCards($allCards, $expansions) {
+        $this->smarty->display('templates/header.tpl');
+        echo ("<div class='container-fluid'>");
+        echo ("<div class='row mb-2 mt-2'>");
+        foreach ($allCards as $key=>$card) {
+            foreach ($expansions as $expansion) {
+                if ($card->expansion == $expansion->id) {
+                    $card->expansion = $expansion->name;
+                }
+            }
+            $this->smarty->assign('allCards', $card);
+            $this->smarty->display('templates/showAllCards.tpl');
+        }
+
+        echo ("</div>");
+        echo ("</div>");
+        echo ("</div>");
+        $this->smarty->display('templates/footer.tpl');
+
+        unset ($card);
     }
 }

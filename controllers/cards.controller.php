@@ -241,6 +241,7 @@ class CardsController {
                 $this->view->showEditPokeCard($id, $card[0]->type, $card[0]->hp, $card[0]->stage, $card[0]->evolvesFrom, $card[0]->attackName1, $card[0]->attackDesc1, $card[0]->attackDamage1, $card[0]->attackEnergies1, $card[0]->attackName2, $card[0]->attackDesc2, $card[0]->attackDamage2, $card[0]->attackEnergies2, $card[0]->hasPokePower, $card[0]->pokePowerName, $card[0]->pokePowerDesc, $card[0]->weakness, $card[0]->resistance, $card[0]->retreatCost, $card[0]->pokedexInfo);
                 break;
             case 2:
+                $card = $this->trainerModel->getCard($id);
                 $this->view->showEditTrainerCard($id);
                 break;
             case 3:
@@ -252,5 +253,11 @@ class CardsController {
         }
 
         // header("Location: " . BASE_URL . "admin/listCards");
+    }
+
+    function showAllCards() {
+        $cards = $this->cardModel->getAllCards();
+        $expansions = $this->expansionModel->getAllExpansions();
+        $this->view->showAllCards($cards, $expansions);
     }
 }

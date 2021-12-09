@@ -25,7 +25,7 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#">Todas las cartas</a>
+								<a class="nav-link" href="{BASE_URL}showAllCards">Todas las cartas</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">Link</a>
