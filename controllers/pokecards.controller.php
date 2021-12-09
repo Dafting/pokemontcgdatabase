@@ -1,15 +1,12 @@
 <?php
 
 include_once('models/pokecards.model.php');
-include_once('views/cards.view.php');
 
 class PokeCardsController {
     private $model;
-    private $view;
 
     public function __construct() {
         $this->model = new PokeCardsModel();
-        $this->view = new CardsView();
     }
 
     function getACard($id) {

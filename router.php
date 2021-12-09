@@ -22,7 +22,7 @@ $pokeCardController = new PokeCardsController();
 $trainerCardController = new TrainerCardsController();
 $energyCardController = new EnergyCardsController();
 $loginController = new LoginController();
-$cardsView = new CardsView();
+$cardsView = new CardsView(NULL);
 
 switch ($params[0]) {
     /* Este case es de pruebas, usar solo para tal fin. */
@@ -76,8 +76,11 @@ switch ($params[0]) {
     case 'showAllCards':
         $cardsController->showAllCards();
     break;
-    case 'categorias':
+    case 'byCategories':
         $cardsController->showCardsByType($params[1]);
+    break;
+    case 'byExpansion':
+        $cardsController->showCardsByExpansion($params[1]);
     break;
     case 'register':
         $loginController->registerUser();

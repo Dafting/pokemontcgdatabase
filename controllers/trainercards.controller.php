@@ -1,7 +1,6 @@
 <?php
 
 include_once('models/trainercards.model.php');
-include_once('views/cards.view.php');
 
 class TrainerCardsController {
     private $model;
@@ -9,7 +8,6 @@ class TrainerCardsController {
 
     public function __construct() {
         $this->model = new TrainerCardsModel();
-        $this->view = new CardsView();
     }
     
     function addTrainerCard() {

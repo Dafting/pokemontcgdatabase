@@ -33,7 +33,7 @@
                     <input type="text" class="form-control" placeholder="Número de Carta (en esa Expansión)" name="expNumber" required>
                 </div>
                 <div class="col">
-                    <input type="file" name="input_name" id="imageToUpload">
+                    <input type="file" name="input_name" id="imageToUpload" required>
                 </div>
             </div>
         <button type="submit" class="btn btn-primary mt-2">Agregar</button>

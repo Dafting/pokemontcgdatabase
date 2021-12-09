@@ -1,16 +1,19 @@
 <?php
 
+require_once('controllers/cards.controller.php');
 require_once('libs/Smarty.class.php');
 
 class CardsView {
          
     private $smarty;
     
-    function __construct() {
+    function __construct($expansions) {
         $this->smarty = new Smarty();
+
+        $this->smarty->assign('expansions', $expansions);
     }
     
-    function showIndex($lastCards) {
+    function showIndex($lastCards, $expansions) {
         foreach ($lastCards as $key=>$card) {
             $this->smarty->assign('cardName' . $key, $card->name);
             $this->smarty->assign('cardExp' . $key, $card->expansion);
@@ -23,11 +26,13 @@ class CardsView {
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/intro.tpl');
         $this->smarty->display('templates/lastCards.tpl');
+
     }
 
     function showAddCards() {
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/addCards.tpl');
+        $this->smarty->display('templates/footer.tpl');
     }
 
     function showAddPokeCard($card_id) {
@@ -35,6 +40,8 @@ class CardsView {
 
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/addPokeCard.tpl');
+        $this->smarty->display('templates/footer.tpl');
+
     }
 
     function showAddTrainerCard($card_id) {
@@ -42,6 +49,8 @@ class CardsView {
 
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/addTrainerCard.tpl');
+        $this->smarty->display('templates/footer.tpl');
+
     }
 
     function showAddEnergyCard($card_id) {
@@ -49,11 +58,15 @@ class CardsView {
 
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/addEnergyCard.tpl');
+        $this->smarty->display('templates/footer.tpl');
+
     }
 
     function showAdmin() {
         $this->smarty->display('templates/header.tpl');
         $this->smarty->display('templates/admin.tpl');
+        $this->smarty->display('templates/footer.tpl');
+
     }
 
     function listCards($cards) {
@@ -322,12 +335,12 @@ class CardsView {
         $this->smarty->display('templates/confirmEditCard.tpl');
     }
 
-    function showAllCards($allCards, $expansions) {
+    function showAllCards($allCards, $allExpansions) {
         $this->smarty->display('templates/header.tpl');
         echo ("<div class='container-fluid'>");
         echo ("<div class='row mb-2 mt-2'>");
         foreach ($allCards as $key=>$card) {
-            foreach ($expansions as $expansion) {
+            foreach ($allExpansions as $expansion) {
                 if ($card->expansion == $expansion->id) {
                     $card->expansion = $expansion->name;
                 }

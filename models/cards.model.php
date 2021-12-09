@@ -9,7 +9,7 @@ class CardsModel {
     }
 
     function getAllCards() {
-        $query = $this->db->prepare('SELECT * FROM cards');
+        $query = $this->db->prepare('SELECT * FROM cards ORDER BY expNumber ASC');
         $query->execute();
     
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
@@ -20,6 +20,15 @@ class CardsModel {
     function getAllCardsByType($type) {
         $query = $this->db->prepare('SELECT * FROM cards WHERE type = :type');
         $query->execute([':type' => $type]);
+
+        $cards = $query->fetchAll(PDO::FETCH_OBJ);
+        
+        return $cards;
+    }
+
+    function getAllCardsByExpansion($expansion) {
+        $query = $this->db->prepare('SELECT * FROM cards WHERE expansion = :expansion');
+        $query->execute([':expansion' => $expansion]);
 
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
         

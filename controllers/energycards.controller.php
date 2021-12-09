@@ -1,7 +1,6 @@
 <?php
 
 include_once('models/energycards.model.php');
-include_once('views/cards.view.php');
 
 class EnergyCardsController {
     private $model;
@@ -9,7 +8,6 @@ class EnergyCardsController {
 
     public function __construct() {
         $this->model = new EnergyCardsModel();
-        $this->view = new CardsView();
     }
     
     function addEnergyCard() {

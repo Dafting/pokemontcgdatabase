@@ -17,7 +17,7 @@ class CardsController {
         $this->energyModel = new EnergycardsModel();
         $this->trainerModel = new TrainercardsModel();
         $this->expansionModel = new ExpansionsModel();
-        $this->view = new CardsView();
+        $this->view = new CardsView($this->expansionModel->getAllExpansions());
     }
 
     function showIndex() {
@@ -34,7 +34,7 @@ class CardsController {
             }
         }
 
-        $this->view->showIndex($lastCards);
+        $this->view->showIndex($lastCards, $expansions);
     }
 
     function showAddCards() {
@@ -145,13 +145,13 @@ class CardsController {
                     }
                     break;
                 case 2:
-                    $cardDetails = $this->trainerModel->getCard($card->id);
+                    $cardDetails = $this->trainerModel->getACard($card->id);
                     if ($cardDetails == null) {
                         $card->error = "bg-danger";
                     }
                     break;
                 case 3:
-                    $cardDetails = $this->energyModel->getCard($card->id);
+                    $cardDetails = $this->energyModel->getACard($card->id);
                     if ($cardDetails == null) {
                         $card->error = "bg-danger";
                     }
@@ -268,12 +268,12 @@ class CardsController {
                 $expansions = $this->expansionModel->getAllExpansions();
                 $this->view->showAllCards($cards, $expansions);
                 break;
-            case 'entrenador':
+            case 'trainers':
                 $cards = $this->cardModel->getAllCardsByType(2);
                 $expansions = $this->expansionModel->getAllExpansions();
                 $this->view->showAllCards($cards, $expansions);
                 break;
-            case 'energia':
+            case 'energies':
                 $cards = $this->cardModel->getAllCardsByType(3);
                 $expansions = $this->expansionModel->getAllExpansions();
                 $this->view->showAllCards($cards, $expansions);
@@ -282,5 +282,12 @@ class CardsController {
                 echo "Error in showCardsByType()";
             break;
         }
+    }
+
+    function showCardsByExpansion($expansion) {
+        $cards = $this->cardModel->getAllCardsByExpansion($expansion);
+        $allExpansions = $this->expansionModel->getAllExpansions();
+
+        $this->view->showAllCards($cards, $allExpansions);
     }
 }
