@@ -10,6 +10,6 @@
     <button type="submit" class="btn btn-primary mt-2">Agregar</button>
     </form>
 </div>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script src="./js/scripts.js"></script>
+<script src="{BASE_URL}js/jquery.min.js"></script>
+<script src="{BASE_URL}js/bootstrap.min.js"></script>
+<script src="{BASE_URL}js/scripts.js"></script>
