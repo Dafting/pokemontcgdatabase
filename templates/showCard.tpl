@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="row flex-row-reverse">
+	<div class="row">
 		<div class="col mt-2 mr-2 d-flex justify-content-center">
 			<img class="smaller-image" alt="Bootstrap Image Preview" src="{BASE_URL}{$cardURL}" />
 		</div>
