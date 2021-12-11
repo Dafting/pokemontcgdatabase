@@ -12,8 +12,8 @@
 	<meta name="author" content="Joaquín de la Iglesia">
 
 	<link ref="icon" href="favicon.ico" type="image/x-icon">
-	<link href="{substr_replace(BASE_URL ,"",-3)}css/bootstrap.css" rel="stylesheet">
-	<link href="{substr_replace(BASE_URL ,"",-3)}css/style.css" rel="stylesheet">
+	<link href="{substr_replace(BASE_URL ,"",-5)}/css/bootstrap.css" rel="stylesheet">
+	<link href="{substr_replace(BASE_URL ,"",-5)}/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col px-0">
 				<nav class="navbar navbar-expand-sm navbar-light bg-light navbar-dark bg-dark">
-					<a class="navbar-brand" href="{substr_replace(BASE_URL ,"",-3)}">Pokémon TCG Database</a>
+					<a class="navbar-brand" href="{substr_replace(BASE_URL ,"",-5)}">Pokémon TCG Database</a>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="navbar-nav">
 							<li class="nav-item">
