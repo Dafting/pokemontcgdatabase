@@ -10,6 +10,11 @@
 
 	<meta name="description" content="Una base de datos del juego de cartas coleccionables de Pokémon.">
 	<meta name="author" content="Joaquín de la Iglesia">
+	<meta property="og:title" content="Pokémon TCG Database" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://pokemon-tcg-databasee.herokuapp.com/" />
+	<meta property="og:image" content="{if $cardUrl != ''}{substr_replace(BASE_URL ,"",-5)}/{$cardURL}{/if}" />
+	<meta property="og:description" content="Una base de datos del juego de cartas coleccionables de Pokémon." />
 
 	<link ref="icon" href="favicon.ico" type="image/x-icon">
 	<link href="{substr_replace(BASE_URL ,"",-5)}/css/bootstrap.css" rel="stylesheet">
