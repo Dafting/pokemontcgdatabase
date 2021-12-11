@@ -1,8 +1,7 @@
 <div class="container">
     <h2 class="mt-4">Editar Carta</h2>
     <p>Debe ingresar los siguientes valores:</p>
-        <form action="./
-editCard/{$cardId}" method="POST" autocomplete="off">
+        <form action="./editCard/{$cardId}" method="POST" autocomplete="off">
             <div class="row">
                 <div class="col">
                     <input type="text" class="form-control" placeholder="Nombre" name="name" value="{$cardName}" required>
@@ -38,9 +37,6 @@ editCard/{$cardId}" method="POST" autocomplete="off">
     </form>
 </div>
     
-<script src="./
-js/jquery.min.js"></script>
-<script src="./
-js/bootstrap.min.js"></script>
-<script src="./
-js/scripts.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/scripts.js"></script>

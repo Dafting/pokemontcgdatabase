@@ -1,7 +1,6 @@
 <div class="container">
     <h2 class="mt-4">Agregar Carta - Energía</h2>
-    <form action="./
-editEnergyCard/{card_id}" method="POST" autocomplete="off">
+    <form action="./editEnergyCard/{card_id}" method="POST" autocomplete="off">
         <div class="row">
             <div class="col">
                 <select name="type" class="form-control" placeholder="Tipo" data-toggle="tooltip" data-placement="top" title="Tipo de la Energía">
@@ -26,9 +25,6 @@ editEnergyCard/{card_id}" method="POST" autocomplete="off">
     <button type="submit" class="btn btn-primary mt-2">Agregar</button>
     </form>
 </div>
-<script src="./
-js/jquery.min.js"></script>
-<script src="./
-js/bootstrap.min.js"></script>
-<script src="./
-js/scripts.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/scripts.js"></script>

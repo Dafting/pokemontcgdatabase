@@ -4,8 +4,7 @@
 			<h3>
 				Acceso para administradores
 			</h3>
-			<form action="./
-verify" method="POST" autocomplete="off">
+			<form action="./verify" method="POST" autocomplete="off">
 				<div class="form-group">
 					<label for="username">
 						Usuario
@@ -26,9 +25,6 @@ verify" method="POST" autocomplete="off">
 	</div>
 </div>
 
-	<script src="./
-js/jquery.min.js"></script>
-	<script src="./
-js/bootstrap.min.js"></script>
-	<script src="./
-js/scripts.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/scripts.js"></script>

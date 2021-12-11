@@ -4,8 +4,7 @@
 			<h3>
 				Registro de usuario
 			</h3>
-			<form action="./
-register" method="POST" autocomplete="off">
+			<form action="./register" method="POST" autocomplete="off">
 				<div class="form-group">
 					<label>
 						Usuario
@@ -26,9 +25,6 @@ register" method="POST" autocomplete="off">
 	</div>
 </div>
 
-	<script src="./
-js/jquery.min.js"></script>
-	<script src="./
-js/bootstrap.min.js"></script>
-	<script src="./
-js/scripts.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/scripts.js"></script>
