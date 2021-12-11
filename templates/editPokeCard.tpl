@@ -1,7 +1,7 @@
 <div class="container">
     <h2 class="mt-4">Editar Carta - Pokémon</h2>
     <p>Debe ingresar los siguientes valores:</p>
-        <form action="{BASE_URL}editPokemonCard/{$card_id}" method="POST" autocomplete="off">
+        <form action="{substr_replace(BASE_URL ,"",-5)}/editPokemonCard/{$card_id}" method="POST" autocomplete="off">
             <div class="row">
                 <div class="col">
                     <select name="type" class="form-control" placeholder="Tipo" data-toggle="tooltip" data-placement="top" title="Tipo del Pokémon">
@@ -135,6 +135,6 @@
     </form>
 </div>
     
-<script src="{BASE_URL}js/jquery.min.js"></script>
-<script src="{BASE_URL}js/bootstrap.min.js"></script>
-<script src="{BASE_URL}js/scripts.js"></script>
+<script src="{substr_replace(BASE_URL ,"",-5)}/js/jquery.min.js"></script>
+<script src="{substr_replace(BASE_URL ,"",-5)}/js/bootstrap.min.js"></script>
+<script src="{substr_replace(BASE_URL ,"",-5)}/js/scripts.js"></script>

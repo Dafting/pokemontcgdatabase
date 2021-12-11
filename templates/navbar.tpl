@@ -25,7 +25,7 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="{BASE_URL}showAllCards">Todas las cartas</a>
+								<a class="nav-link" href="{substr_replace(BASE_URL ,"",-5)}/showAllCards">Todas las cartas</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">Link</a>
@@ -34,9 +34,9 @@
 								<a class="nav-link dropdown-toggle"
 									id="navbarDropdownMenuLink" data-toggle="dropdown">Por tipo de carta</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="{BASE_URL}byCategories/pokemon">Pokémon</a> 
-									<a class="dropdown-item" href="{BASE_URL}byCategories/trainers">Entrenador</a>
-									<a class="dropdown-item" href="{BASE_URL}byCategories/energies">Energía</a>
+									<a class="dropdown-item" href="{substr_replace(BASE_URL ,"",-5)}/byCategories/pokemon">Pokémon</a> 
+									<a class="dropdown-item" href="{substr_replace(BASE_URL ,"",-5)}/byCategories/trainers">Entrenador</a>
+									<a class="dropdown-item" href="{substr_replace(BASE_URL ,"",-5)}/byCategories/energies">Energía</a>
 								</div>
 							</li>
 							<li class="nav-item dropdown">
@@ -44,7 +44,7 @@
 									id="navbarDropdownMenuLink" data-toggle="dropdown">Por expansión</a>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 									{foreach from=$expansions key=key item=expansion}
-									<a class="dropdown-item" href="{BASE_URL}byExpansion/{$expansions[$key]->id}">{$expansions[$key]->name}</a>
+									<a class="dropdown-item" href="{substr_replace(BASE_URL ,"",-5)}/byExpansion/{$expansions[$key]->id}">{$expansions[$key]->name}</a>
 									{/foreach}
 								</div>
 							</li>
@@ -57,7 +57,7 @@
 						</form>
 						<ul class="navbar-nav ml-md-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="{BASE_URL}admin">Admin<span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="{substr_replace(BASE_URL ,"",-5)}/admin">Admin<span class="sr-only">(current)</span></a>
 							</li>
 						</ul>
 					</div>

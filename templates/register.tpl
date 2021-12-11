@@ -4,7 +4,7 @@
 			<h3>
 				Registro de usuario
 			</h3>
-			<form action="{BASE_URL}register" method="POST" autocomplete="off">
+			<form action="{substr_replace(BASE_URL ,"",-5)}/register" method="POST" autocomplete="off">
 				<div class="form-group">
 					<label>
 						Usuario
@@ -25,6 +25,6 @@
 	</div>
 </div>
 
-	<script src="{BASE_URL}js/jquery.min.js"></script>
-	<script src="{BASE_URL}js/bootstrap.min.js"></script>
-	<script src="{BASE_URL}js/scripts.js"></script>
+	<script src="{substr_replace(BASE_URL ,"",-5)}/js/jquery.min.js"></script>
+	<script src="{substr_replace(BASE_URL ,"",-5)}/js/bootstrap.min.js"></script>
+	<script src="{substr_replace(BASE_URL ,"",-5)}/js/scripts.js"></script>

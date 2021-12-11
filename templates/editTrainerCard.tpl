@@ -37,6 +37,6 @@
     <button type="submit" class="btn btn-primary mt-2" data-toggle="modal" data-target="#exampleModal">Agregar</button>
     </form>
 </div>
-<script src="{BASE_URL}js/jquery.min.js"></script>
-<script src="{BASE_URL}js/bootstrap.min.js"></script>
-<script src="{BASE_URL}js/scripts.js"></script>
+<script src="{substr_replace(BASE_URL ,"",-5)}/js/jquery.min.js"></script>
+<script src="{substr_replace(BASE_URL ,"",-5)}/js/bootstrap.min.js"></script>
+<script src="{substr_replace(BASE_URL ,"",-5)}/js/scripts.js"></script>
