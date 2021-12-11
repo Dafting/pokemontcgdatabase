@@ -21,7 +21,7 @@ class CardsController {
     }
 
     function showIndex() {
-        $lastCards = $this->cardModel->getAllCards();
+        $lastCards = $this->cardModel->getAllCards(true);
         $lastCards = array_reverse($lastCards);
 
         $expansions = $this->expansionModel->getAllExpansions();

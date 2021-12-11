@@ -8,8 +8,13 @@ class CardsModel {
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    function getAllCards() {
-        $query = $this->db->prepare('SELECT * FROM cards ORDER BY expNumber ASC');
+    function getAllCards($orderByLastAdded = false) {
+        
+        if ($orderByLastAdded) {
+            $query = $this->db->prepare('SELECT * FROM cards');
+        } else {
+            $query = $this->db->prepare('SELECT * FROM cards ORDER BY `cards`.`expansion` ASC, `cards`.`expNumber` ASC');
+        }
         $query->execute();
     
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
@@ -17,8 +22,12 @@ class CardsModel {
         return $cards;
     }
 
-    function getAllCardsByType($type) {
-        $query = $this->db->prepare('SELECT * FROM cards WHERE type = :type ORDER BY `cards`.`expansion` ASC, `cards`.`expNumber` ASC');
+    function getAllCardsByType($type, $orderByLastAdded = false) {
+        if ($orderByLastAdded) {
+            $query = $this->db->prepare('SELECT * FROM cards WHERE `type` = :type');
+        } else {
+            $query = $this->db->prepare('SELECT * FROM cards WHERE `type` = :type ORDER BY `cards`.`expansion` ASC, `cards`.`expNumber` ASC');
+        }
         $query->execute([':type' => $type]);
 
         $cards = $query->fetchAll(PDO::FETCH_OBJ);
@@ -26,8 +35,12 @@ class CardsModel {
         return $cards;
     }
 
-    function getAllCardsByExpansion($expansion) {
-        $query = $this->db->prepare('SELECT * FROM cards WHERE expansion = :expansion ORDER BY `cards`.`expansion` ASC, `cards`.`expNumber` ASC');
+    function getAllCardsByExpansion($expansion, $orderByLastAdded = false) {
+        if ($orderByLastAdded) {
+            $query = $this->db->prepare('SELECT * FROM cards WHERE `expansion` = :expansion');
+        } else {
+            $query = $this->db->prepare('SELECT * FROM cards WHERE `expansion` = :expansion ORDER BY `cards`.`expNumber` ASC');
+        }
         $query->execute([':expansion' => $expansion]);
 
         $cards = $query->fetchAll(PDO::FETCH_OBJ);

@@ -16,13 +16,13 @@
                     <option value="0">Energía Básica</option>
                     <option value="1">Energía Especial</option>
                 </select>
-                <input type="hidden" name="card_id" value="{$card_id}">
             </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Descripción" name="description" required>
             </div>
         </div>
     <button type="submit" class="btn btn-primary mt-2">Agregar</button>
+    <input type="hidden" name="card_id" value="{$card_id}">
     </form>
 </div>
 <script src="{BASE_URL}js/jquery.min.js"></script>

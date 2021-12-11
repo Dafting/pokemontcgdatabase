@@ -24,9 +24,9 @@
                 </div>
                 <div class="col">
                     <select name="expansion" class="form-control" placeholder="Expansión" data-toggle="tooltip" data-placement="top" title="Expansión">
-                        <option value="1" {if $expansion == 1}selected{/if}>Base</option>
-                        <option value="2" {if $expansion == 2}selected{/if}>Jungla</option>
-                        <option value="3" {if $expansion == 3}selected{/if}>Fósil</option>
+                        {foreach from=$expansions key=key item=expansion}
+						<option value="{$expansions[$key]->id} {if $expansion == $expansions[$key]->id}selected{/if}">{$expansions[$key]->name}</option>
+						{/foreach}
                     </select>
                 </div>
                 <div class="col">

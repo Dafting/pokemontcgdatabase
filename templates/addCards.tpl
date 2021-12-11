@@ -24,9 +24,9 @@
                 </div>
                 <div class="col">
                     <select name="expansion" class="form-control" placeholder="Expansión" data-toggle="tooltip" data-placement="top" title="Expansión">
-                        <option value="1">Base</option>
-                        <option value="2">Jungla</option>
-                        <option value="3">Fósil</option>
+						{foreach from=$expansions key=key item=expansion}
+						<option value="{$expansions[$key]->id}">{$expansions[$key]->name}</option>
+						{/foreach}
                     </select>
                 </div>
                 <div class="col">
@@ -39,7 +39,3 @@
         <button type="submit" class="btn btn-primary mt-2">Agregar</button>
     </form>
 </div>
-    
-<script src="{BASE_URL}js/jquery.min.js"></script>
-<script src="{BASE_URL}js/bootstrap.min.js"></script>
-<script src="{BASE_URL}js/scripts.js"></script>

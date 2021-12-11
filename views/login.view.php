@@ -11,7 +11,7 @@ class LoginView {
     }
 
     function showLogin() {
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/login.tpl');
     }
 
@@ -21,13 +21,13 @@ class LoginView {
         $this->smarty->assign('alertTitle', 'Error en el login');
         $this->smarty->assign('alertDescription', 'El usuario o la contraseña no son correctos');
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/alert.tpl');
         $this->smarty->display('templates/login.tpl');
     }
 
     function showRegister() {
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/register.tpl');
     }
 }

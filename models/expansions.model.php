@@ -26,9 +26,9 @@ class ExpansionsModel {
         return $expansion;
     }
 
-    function insertCard($name) {
-        $query = $this->db->prepare('INSERT INTO expansions (name) VALUES (:name)');
-        $query->execute(['name' => $name]);
+    function addExpansion($name, $imageDir) {
+        $query = $this->db->prepare('INSERT INTO expansions (name, image) VALUES (?, ?)');
+        $query->execute([$name, $imageDir]);
     }
 
     function deleteCard($id) {

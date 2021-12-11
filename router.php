@@ -5,6 +5,7 @@ require_once './controllers/login.controller.php';
 require_once './controllers/pokecards.controller.php';
 require_once './controllers/trainercards.controller.php';
 require_once './controllers/energycards.controller.php';
+require_once './controllers/expansions.controller.php';
 require_once './views/cards.view.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
@@ -22,6 +23,7 @@ $pokeCardController = new PokeCardsController();
 $trainerCardController = new TrainerCardsController();
 $energyCardController = new EnergyCardsController();
 $loginController = new LoginController();
+$expansionsController = new ExpansionsController();
 $cardsView = new CardsView(NULL);
 
 switch ($params[0]) {
@@ -46,6 +48,12 @@ switch ($params[0]) {
                 case 'editCard':
                     $cardsController->showEditCard($params[2]);
                 break;
+                case 'addExpansion':
+                    $expansionsController->addExpansion();
+                break;
+                case 'listExpansions':
+                    $expansionsController->listExpansions();
+                break;
                 default:
                     $cardsController->showAdmin();
                 break;
@@ -53,13 +61,25 @@ switch ($params[0]) {
         }
     break;
     case 'viewCard':
-        $cardsController->showCard($params[1]);
+        if(!empty($params[1])){
+            $cardsController->showCard($params[1]);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
     break;
     case 'editCard':
-        $cardsController->editCard($params[1]);
+        if(!empty($params[1])){
+            $cardsController->editCard($params[1]);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
     break;
     case 'editPokemonCard':
-        $pokeCardController->editPokeCard($params[1]);
+        if(!empty($params[1])){
+            $pokeCardController->editPokemonCard($params[1]);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
     break;
     case 'addNewCard':
         $cardsController->addCard();
@@ -77,10 +97,18 @@ switch ($params[0]) {
         $cardsController->showAllCards();
     break;
     case 'byCategories':
-        $cardsController->showCardsByType($params[1]);
+        if(!empty($params[1])){
+            $cardsController->showCardsByType($params[1]);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
     break;
     case 'byExpansion':
-        $cardsController->showCardsByExpansion($params[1]);
+        if(!empty($params[1])){
+            $cardsController->showCardsByExpansion($params[1]);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
     break;
     case 'register':
         $loginController->registerUser();
@@ -89,6 +117,6 @@ switch ($params[0]) {
         $loginController->verifyLogin();
     break;
     default:
-        $cardsController->showIndex();
+            $cardsController->showIndex();
     break;
 }

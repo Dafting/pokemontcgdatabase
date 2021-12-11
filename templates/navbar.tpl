@@ -19,7 +19,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col">
+			<div class="col px-0">
 				<nav class="navbar navbar-expand-sm navbar-light bg-light navbar-dark bg-dark">
 					<a class="navbar-brand" href="{BASE_URL}">Pokémon TCG Database</a>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

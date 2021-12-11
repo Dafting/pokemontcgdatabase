@@ -23,14 +23,14 @@ class CardsView {
 
         unset($card);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/intro.tpl');
         $this->smarty->display('templates/lastCards.tpl');
 
     }
 
     function showAddCards() {
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/addCards.tpl');
         $this->smarty->display('templates/footer.tpl');
     }
@@ -38,7 +38,7 @@ class CardsView {
     function showAddPokeCard($card_id) {
         $this->smarty->assign('card_id', $card_id);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/addPokeCard.tpl');
         $this->smarty->display('templates/footer.tpl');
 
@@ -47,7 +47,7 @@ class CardsView {
     function showAddTrainerCard($card_id) {
         $this->smarty->assign('card_id', $card_id);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/addTrainerCard.tpl');
         $this->smarty->display('templates/footer.tpl');
 
@@ -56,21 +56,21 @@ class CardsView {
     function showAddEnergyCard($card_id) {
         $this->smarty->assign('card_id', $card_id);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/addEnergyCard.tpl');
         $this->smarty->display('templates/footer.tpl');
 
     }
 
     function showAdmin() {
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/admin.tpl');
         $this->smarty->display('templates/footer.tpl');
 
     }
 
     function listCards($cards) {
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         echo('<h3 class="mt-2 mb-2">Lista de cartas en la base de datos</h3>');
         foreach ($cards as $card) {
             $this->smarty->assign('cardName', $card->name);
@@ -87,42 +87,43 @@ class CardsView {
             switch ($card->type) {
                 case '1':
                     $this->smarty->assign('cardType', 'Pokémon');
-                    break;
+                break;
                 case '2':
                     $this->smarty->assign('cardType', 'Entrenador');
-                    break;
+                break;
                 case '3':
                     $this->smarty->assign('cardType', 'Energía');
-                    break;
+                break;
             }
 
             switch ($card->rarity) {
                 case '1':
                     $this->smarty->assign('cardRarity', 'Común');
-                    break;
+                break;
                 case '2':
                     $this->smarty->assign('cardRarity', 'Infrecuente');
-                    break;
+                break;
                 case '3':
                     $this->smarty->assign('cardRarity', 'Rara');
-                    break;
+                break;
             }
 
-            //TODO: Pedir esta info a la BD
+            // TODO: Pedir esta info a la BD
             switch ($card->expansion) {
                 case '1':
                     $this->smarty->assign('cardExpansion', 'Base');
-                    break;
+                break;
                 case '2':
                     $this->smarty->assign('cardExpansion', 'Jungla');
-                    break;
+                break;
                 case '3':
                     $this->smarty->assign('cardExpansion', 'Fósil');
-                    break;
+                break;
             }
 
             $this->smarty->assign('cardId', $card->id);
             $this->smarty->display('templates/listCard.tpl');
+            $this->smarty->display('templates/footer.tpl');
         }
     }
 
@@ -174,13 +175,13 @@ class CardsView {
         switch ($card[0]->expansion) {
             case '1':
                 $this->smarty->assign('expansionName', 'Base');
-                break;
+            break;
             case '2':
                 $this->smarty->assign('expansionName', 'Jungla');
-                break;
+            break;
             case '3':
                 $this->smarty->assign('expansionName', 'Fósil');
-                break;
+            break;
         }
 
         //Acá empieza la declaración de variables para mostrar los datos de la carta en caso de que sea un Pokémon
@@ -251,7 +252,7 @@ class CardsView {
         // Descripción de Entrenadores y Energías
         // Lo hago así para no asignar variables que no se van a usar.
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/showCard.tpl');
     }
 
@@ -263,7 +264,7 @@ class CardsView {
         $this->smarty->assign('expansion', $card[0]->expansion);
         $this->smarty->assign('expNumber', $card[0]->expNumber);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/editCards.tpl');
     }
 
@@ -289,21 +290,21 @@ class CardsView {
         $this->smarty->assign('retreatCost', $retreatCost);
         $this->smarty->assign('pokedexInfo', $pokedexInfo);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/editPokeCard.tpl');
     }
 
     function showEditTrainerCard($card_id) {
         $this->smarty->assign('card_id', $card_id);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/editTrainerCard.tpl');
     }
 
     function showEditEnergyCard($card_id) {
         $this->smarty->assign('card_id', $card_id);
 
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/editEnergyCard.tpl');
     }
 
@@ -331,12 +332,12 @@ class CardsView {
                 break;
         }
         $this->smarty->assign('id', $id);
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/confirmEditCard.tpl');
     }
 
     function showAllCards($allCards, $allExpansions) {
-        $this->smarty->display('templates/header.tpl');
+        $this->smarty->display('templates/navbar.tpl');
         echo ("<div class='container-fluid'>");
         echo ("<div class='row mb-2 mt-2'>");
         foreach ($allCards as $key=>$card) {

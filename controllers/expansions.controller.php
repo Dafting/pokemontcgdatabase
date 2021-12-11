@@ -8,24 +8,20 @@ class ExpansionsController {
 
     public function __construct() {
         $this->model = new ExpansionsModel();
-        $this->view = new CardsView();
+        $expansions = $this->model->getAllExpansions();
+        $this->view = new CardsView($expansions);
     }
-    
-    /*function addTrainerCard() {
-        $description = $_REQUEST['description'];
-        $card_id = $_REQUEST['card_id'];
 
-        if(isset($description)) {
-            $description = str_replace("{", "<span class='tcg-symbol'>", $description);
-            $description = str_replace("}", "</span>", $description);
-        }
+    function addExpansion($name, $imageDir) {
+        $this->model->addExpansion($name, $imageDir);
+        $this->view->showExpansions();
+    }
 
-        $this->model->insertCard($description, $card_id);
-        header('Location: ' . BASE_URL);
-    }*/
+    function listExpansions() {
+        $this->view->showExpansions();
+    }
 
     function getExpansionNames($expansionId) {
-        $expansions = $this->model->getAllExpansions();
         foreach($expansions as $expansion) {
             if($expansion['id'] == $expansionId) {
                 return $expansion['name'];
