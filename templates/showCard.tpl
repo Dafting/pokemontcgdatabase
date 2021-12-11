@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col mt-2 mr-2 d-flex justify-content-center">
-			<img class="smaller-image" alt="Bootstrap Image Preview" src="{BASE_URL}{$cardURL}" />
+			<img class="smaller-image" alt="Bootstrap Image Preview" src="./{$cardURL}" />
 		</div>
 		<div class="col mt-2 d-flex flex-column align-self-center">
 			<h3>
@@ -57,6 +57,6 @@
 	</div>
 </div>
 
-<script src="{BASE_URL}js/jquery.min.js"></script>
-<script src="{BASE_URL}js/bootstrap.min.js"></script>
-<script src="{BASE_URL}js/scripts.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/scripts.js"></script>
