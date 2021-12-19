@@ -1,7 +1,7 @@
 <div class="container">
     <h2 class="mt-4">Agregar Carta</h2>
     <p>Debe ingresar los siguientes valores:</p>
-        <form action="{substr_replace(BASE_URL ,"",-5)}/addNewCard" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <form action="{BASE_URL}addNewCard" method="POST" autocomplete="off" enctype="multipart/form-data">
             <div class="row">
                 <div class="col">
                     <input type="text" class="form-control" placeholder="Nombre" name="name" required>

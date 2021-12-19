@@ -25,6 +25,6 @@
     <input type="hidden" name="card_id" value="{$card_id}">
     </form>
 </div>
-<script src="{substr_replace(BASE_URL ,"",-5)}/js/jquery.min.js"></script>
-<script src="{substr_replace(BASE_URL ,"",-5)}/js/bootstrap.min.js"></script>
-<script src="{substr_replace(BASE_URL ,"",-5)}/js/scripts.js"></script>
+<script src="{BASE_URL}js/jquery.min.js"></script>
+<script src="{BASE_URL}js/bootstrap.min.js"></script>
+<script src="{BASE_URL}js/scripts.js"></script>
