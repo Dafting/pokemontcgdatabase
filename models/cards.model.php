@@ -57,6 +57,15 @@ class CardsModel {
         return $singleCard;
     }
 
+    function searchCard($name) {
+        $query = $this->db->prepare('SELECT * FROM cards WHERE `name` LIKE :name');
+        $query->execute(['name' => '%'.$name.'%']);
+
+        $cards = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $cards;
+    }
+
     function insertCard($name, $type, $expansion, $expNumber, $rarity, $imageDir){
     
         $query = $this->db->prepare('INSERT INTO cards (name, type, expansion, expNumber, rarity, image) VALUES (?, ?, ?, ?, ?, ?)');

@@ -60,6 +60,9 @@ switch ($params[0]) {
             }
         }
     break;
+    case 'search':
+        $cardsController->searchCards();
+    break;
     case 'viewCard':
         if(!empty($params[1])){
             $cardsController->showCard($params[1]);

@@ -45,6 +45,13 @@ class CardsController {
         $this->view->showAdmin();
     }
 
+    function searchCards() {
+        $expansions = $this->expansionModel->getAllExpansions();
+
+        $results = $this->cardModel->searchCard($_GET['query']);
+        $this->view->showAllCards($results, $expansions);
+    }
+
     function addCard() {
         $name = $_REQUEST['name'];
         $type = $_REQUEST['type'];
