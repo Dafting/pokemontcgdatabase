@@ -8,7 +8,7 @@ require_once './controllers/energycards.controller.php';
 require_once './controllers/expansions.controller.php';
 require_once './views/cards.view.php';
 
-define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . '443' . dirname($_SERVER['PHP_SELF']).'/');
+define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . '443' . dirname($_SERVER['PHP_SELF']));
 
 if(!empty($_GET['action'])){
     $action = $_GET['action'];
