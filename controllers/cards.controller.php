@@ -48,8 +48,12 @@ class CardsController {
     function searchCards() {
         $expansions = $this->expansionModel->getAllExpansions();
 
-        $results = $this->cardModel->searchCard($_GET['query']);
-        $this->view->showAllCards($results, $expansions);
+        if($_GET['query'] == "") {
+            header("Location: " . BASE_URL);
+        } else {
+            $results = $this->cardModel->searchCard($_GET['query']);
+            $this->view->showAllCards($results, $expansions);
+        }
     }
 
     function addCard() {
@@ -144,7 +148,7 @@ class CardsController {
     function listCards() {
         $cards = $this->cardModel->getAllCards();
         $expansions = $this->expansionModel->getAllExpansions();
-        
+
         foreach($cards as $card) {
             switch($card->type) {
                 case 1:
