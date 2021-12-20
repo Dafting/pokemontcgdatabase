@@ -9,7 +9,6 @@ class CardsView {
     
     function __construct($expansions) {
         $this->smarty = new Smarty();
-
         $this->smarty->assign('expansions', $expansions);
     }
     
@@ -69,7 +68,7 @@ class CardsView {
 
     }
 
-    function listCards($cards) {
+    function listCards($cards, $expansions) {
         $this->smarty->display('templates/navbar.tpl');
         echo('<h3 class="mt-2 mb-2">Lista de cartas en la base de datos</h3>');
         foreach ($cards as $card) {
@@ -108,17 +107,10 @@ class CardsView {
                 break;
             }
 
-            // TODO: Pedir esta info a la BD
-            switch ($card->expansion) {
-                case '1':
-                    $this->smarty->assign('cardExpansion', 'Base');
-                break;
-                case '2':
-                    $this->smarty->assign('cardExpansion', 'Jungla');
-                break;
-                case '3':
-                    $this->smarty->assign('cardExpansion', 'Fósil');
-                break;
+            foreach ($expansions as $expansion) {
+                if ($expansion->id == $card->expansion) {
+                    $this->smarty->assign('cardExpansion', $expansion->name);
+                }
             }
 
             $this->smarty->assign('cardId', $card->id);
@@ -127,7 +119,7 @@ class CardsView {
         }
     }
 
-    function ShowCard($card, $cardDetails) {
+    function ShowCard($card, $cardDetails, $expansions) {
 
         $this->smarty->assign('cardName', $card[0]->name);
         $this->smarty->assign('expansionName', $card[0]->expansion);
@@ -170,18 +162,10 @@ class CardsView {
                 break;
         }
 
-        //TODO: Softcodear esto para que se traiga el nombre de la expansión desde la base de datos
-
-        switch ($card[0]->expansion) {
-            case '1':
-                $this->smarty->assign('expansionName', 'Base');
-            break;
-            case '2':
-                $this->smarty->assign('expansionName', 'Jungla');
-            break;
-            case '3':
-                $this->smarty->assign('expansionName', 'Fósil');
-            break;
+        foreach ($expansions as $expansion) {
+            if($expansion->id == $card[0]->expansion) {
+                $this->smarty->assign('expansionName', $expansion->name);
+            }
         }
 
         //Acá empieza la declaración de variables para mostrar los datos de la carta en caso de que sea un Pokémon

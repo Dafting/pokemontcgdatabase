@@ -54,7 +54,7 @@
 								</div>
 							</li>
 						</ul>
-						<form class="form-inline" action="search" method="GET">
+						<form class="form-inline" action="{BASE_URL}search" method="GET">
 							<input class="form-control mr-sm-2" type="text" name="query" id="query">
 							<button class="btn btn-primary my-2 my-sm-0" type="submit">
 								Search
