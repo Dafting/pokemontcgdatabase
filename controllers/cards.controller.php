@@ -143,6 +143,8 @@ class CardsController {
 
     function listCards() {
         $cards = $this->cardModel->getAllCards();
+        $expansions = $this->expansionModel->getAllExpansions();
+        
         foreach($cards as $card) {
             switch($card->type) {
                 case 1:
@@ -168,11 +170,12 @@ class CardsController {
                 break;
             }
         }
-        $this->view->listCards($cards);
+        $this->view->listCards($cards, $expansions);
     }
 
     function showCard($id) {
         $card = $this->cardModel->getACard($id);
+        $expansions = $this->expansionModel->getAllExpansions();
         if ($card == null) {
             //TODO: Hacer un mejor error
             echo ("No se ha encontrado la carta");
@@ -199,7 +202,7 @@ class CardsController {
             echo ("Carta trunca! Hay información perdida. Contacte al administrador.");
             return;
         }
-        $this->view->showCard($card, $cardDetails);
+        $this->view->showCard($card, $cardDetails, $expansions);
     }
 
     function showEditCard($id) {
