@@ -10,6 +10,13 @@ require_once './views/cards.view.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . '443' . dirname($_SERVER['PHP_SELF']));
 
+/* datos de conexión a la base de datos */
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'pokemontcgdb');
+
 if(!empty($_GET['action'])){
     $action = $_GET['action'];
 }
