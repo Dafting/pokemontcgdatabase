@@ -11,6 +11,13 @@ class CardsView {
         $this->smarty = new Smarty();
         $this->smarty->assign('expansions', $expansions);
     }
+
+    function showError($errorCode) {
+        $this->smarty->assign('errorCode', $errorCode);
+
+        $this->smarty->display('templates/navbar.tpl');
+        $this->smarty->display('templates/error.tpl');
+    }
     
     function showIndex($lastCards, $expansions) {
         foreach ($lastCards as $key=>$card) {
@@ -68,9 +75,16 @@ class CardsView {
 
     }
 
+    function showAdvancedSearchCards() {
+        $this->smarty->display('templates/navbar.tpl');
+        $this->smarty->display('templates/advancedSearch.tpl');
+        $this->smarty->display('templates/footer.tpl');
+    }
+
+
     function listCards($cards, $expansions) {
         $this->smarty->display('templates/navbar.tpl');
-        echo('<h3 class="mt-2 mb-2">Lista de cartas en la base de datos</h3>');
+        echo('<h3 class="my-2 ml-3">Lista de cartas en la base de datos</h3>');
         foreach ($cards as $card) {
             $this->smarty->assign('cardName', $card->name);
             $this->smarty->assign('cardId', $card->id);
@@ -236,8 +250,11 @@ class CardsView {
         // Descripción de Entrenadores y Energías
         // Lo hago así para no asignar variables que no se van a usar.
 
+        $this->smarty->assign('cardId', $card[0]->id);
         $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/showCard.tpl');
+        $this->smarty->display('templates/vue/commentList.tpl');
+        $this->smarty->display('templates/footer.tpl');
     }
 
     function showEditCard($card, $cardDetails) {
@@ -250,6 +267,13 @@ class CardsView {
 
         $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/editCards.tpl');
+    }
+
+    function showEditCardImg($card) {
+        $this->smarty->assign('cardId', $card[0]->id);
+
+        $this->smarty->display('templates/navbar.tpl');
+        $this->smarty->display('templates/editCardImg.tpl');
     }
 
     function showEditPokeCard($card_id, $type, $hp, $stage, $evolvesFrom, $attackName1, $attackDesc1, $attackDamage1, $attackEnergies1, $attackName2, $attackDesc2, $attackDamage2, $attackEnergies2, $hasPokePower, $pokePowerName, $pokePowerDesc, $weakness, $resistance, $retreatCost, $pokedexInfo) {
@@ -320,10 +344,11 @@ class CardsView {
         $this->smarty->display('templates/confirmEditCard.tpl');
     }
 
-    function showAllCards($allCards, $allExpansions) {
+    function showAllCards($allCards, $allExpansions, $page = 0, $lastPage = false, $enabled = true) {
         $this->smarty->display('templates/navbar.tpl');
         echo ("<div class='container-fluid'>");
         echo ("<div class='row mb-2 mt-2'>");
+        $path = deleteQuery($_SERVER['REQUEST_URI']);
         foreach ($allCards as $key=>$card) {
             foreach ($allExpansions as $expansion) {
                 if ($card->expansion == $expansion->id) {
@@ -333,12 +358,57 @@ class CardsView {
             $this->smarty->assign('allCards', $card);
             $this->smarty->display('templates/showAllCards.tpl');
         }
+        echo ("</div>");
+        echo ("</div>");
+        echo ("</div>");
+        if ($enabled) {
+            $this->smarty->assign('page', $page);
+            $this->smarty->assign('path', $path);
+            $this->smarty->assign('lastPage', $lastPage);
+            $this->smarty->display('templates/pagination.tpl');
+        }
+        $this->smarty->display('templates/footer.tpl');
+
+        unset ($card);
+    }
+
+    function showExpansions($allExpansions) {
+        $this->smarty->display('templates/navbar.tpl');
+        echo ("<div class='container-fluid'>");
+        echo ("<div class='row mb-2 mt-2'>");
+        foreach ($allExpansions as $key=>$expansion) {
+            $this->smarty->assign('shownExpansion', $expansion);
+            $this->smarty->display('templates/showExpansions.tpl');
+        }
 
         echo ("</div>");
         echo ("</div>");
         echo ("</div>");
         $this->smarty->display('templates/footer.tpl');
 
-        unset ($card);
+        unset ($expansion);
+    }
+   
+    function showEditExpansion($expansion) {
+        $this->smarty->assign('expansionName', $expansion[0]->name);
+        $this->smarty->assign('expansionId', $expansion[0]->id);
+
+        $this->smarty->display('templates/navbar.tpl');
+        $this->smarty->display('templates/editExpansion.tpl');
+    }
+
+    function listExpansions($allExpansions) {
+        $this->smarty->display('templates/navbar.tpl');
+        echo('<h3 class="my-2 ml-3">Lista de expansiones en la base de datos</h3>');
+        foreach ($allExpansions as $expansion) {
+            $this->smarty->assign('expansionName', $expansion->name);
+            $this->smarty->assign('expansionId', $expansion->id);
+            $this->smarty->display('templates/listExpansions.tpl');
+        }
+    }
+
+    function showAddExpansion() {
+        $this->smarty->display('templates/navbar.tpl');
+        $this->smarty->display('templates/addExpansion.tpl');
     }
 }

@@ -66,6 +66,21 @@ class CardsModel {
         return $cards;
     }
 
+    function advancedSearch($name, $type, $expansion, $rarity, $expNumber) {
+        $query = $this->db->prepare('SELECT * FROM cards WHERE `name` LIKE :name AND `type` LIKE :type AND `expansion` LIKE :expansion AND `rarity` LIKE :rarity AND `expNumber` LIKE :expNumber');
+        $query->execute([
+            'name' => '%'.$name.'%',
+            'type' => '%'.$type.'%',
+            'expansion' => '%'.$expansion.'%',
+            'rarity' => '%'.$rarity.'%',
+            'expNumber' => '%'.$expNumber.'%'
+        ]);
+
+        $cards = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $cards;
+    }
+
     function insertCard($name, $type, $expansion, $expNumber, $rarity, $imageDir){
     
         $query = $this->db->prepare('INSERT INTO cards (name, type, expansion, expNumber, rarity, image) VALUES (?, ?, ?, ?, ?, ?)');
@@ -79,8 +94,18 @@ class CardsModel {
         $query->execute(['id' => $id]);
     }
 
+    function deleteCardImg($id) {
+        $query = $this->db->prepare('UPDATE cards SET image = :image WHERE id = :id');
+        $query->execute(['id' => $id, 'image' => 'img/cards/0.jpg']);
+    }
+
     function updateCard($id, $name, $type, $rarity, $expansion, $expNumber){
         $query = $this->db->prepare('UPDATE cards SET name = :name, type = :type, rarity = :rarity, expansion = :expansion, expNumber = :expNumber WHERE id = :id');
         $query->execute(['id' => $id, 'name' => $name, 'type' => $type, 'rarity' => $rarity, 'expansion' => $expansion, 'expNumber' => $expNumber]);
+    }
+
+    function updateCardImg($id, $imageDir) {
+        $query = $this->db->prepare('UPDATE cards SET image = :image WHERE id = :id');
+        $query->execute(['image' => $imageDir, 'id' => $id]);
     }
 }

@@ -28,7 +28,7 @@
 								<a class="nav-link" href="{BASE_URL}showAllCards">Todas las cartas</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#">Mazos</a>
+								<a class="nav-link" href="{BASE_URL}showAllExpansions">Todas las expansiones</a>
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle"
@@ -51,17 +51,36 @@
 						</ul>
 						<form class="form-inline" action="{BASE_URL}search" method="GET">
 							<input class="form-control mr-sm-2" type="text" name="query" id="query">
-							<button class="btn btn-primary my-2 my-sm-0" type="submit">
+							<button class="btn btn-primary my-2 mr-2 my-sm-0" type="submit">
 								Buscar
 							</button>
 						</form>
 						<button class="btn btn-secondary my-2 my-sm-0">
-							<a href="{BASE_URL}advanced_search" class="text-white">Búsqueda Avanzada</a>
+							<a href="{BASE_URL}showAdvancedSearch" class="text-white">Búsqueda Avanzada</a>
 						</button>
 						<ul class="navbar-nav ml-md-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="{BASE_URL}admin">Admin<span class="sr-only">(current)</span></a>
+								{if isset($smarty.session.username)}
+								<p class="nav-link mb-0">{$smarty.session.username}<span class="sr-only"></span></p>
+								</li>
+								{if $smarty.session.isAdmin == 1}
+									<li class="nav-item">
+									<a class="nav-link" href="{BASE_URL}admin">Admin<span class="sr-only"></span></a>
+									</li>
+								{/if}
+								<li class="nav-item">
+								<a class="nav-link text-danger" href="{BASE_URL}logout">Logout<span class="sr-only"></span></a>
+								</li>
+								{/if}
+								{if !isset($smarty.session.username)}
+								<a class="nav-link" href="{BASE_URL}login">Login<span class="sr-only"></span></a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link" href="{BASE_URL}register">Register<span class="sr-only"></span></a>
+								</li>
+								{/if}
 							</li>
 						</ul>
 					</div>
 				</nav>
+

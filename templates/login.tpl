@@ -1,10 +1,10 @@
 <div class="container-fluid fill">
 	<div class="row justify-content-center fill">
 		<div class="col-md-4 d-flex align-items-center align-content-center flex-wrap justify-content-center">
-			<h3>
-				Acceso para administradores
+			<h3 class="mr-4">
+				Iniciar sesión
 			</h3>
-			<form action="{BASE_URL}verify" method="POST" autocomplete="off">
+			<form action="{BASE_URL}verifyLogin" method="POST" autocomplete="off">
 				<div class="form-group">
 					<label for="username">
 						Usuario

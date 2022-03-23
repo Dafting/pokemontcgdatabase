@@ -1,6 +1,6 @@
 <?php
 
-include_once('models/login.model.php');
+include_once('models/users.model.php');
 include_once('views/login.view.php');
 
 class LoginController {
@@ -10,7 +10,7 @@ class LoginController {
     public function __construct() {
         // $this->model = new CardsModel();
         $this->view = new LoginView();
-        $this->model = new LoginModel();
+        $this->model = new UsersModel();
     }
 
     function showLogin() {
@@ -25,16 +25,24 @@ class LoginController {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $loginData = $this->model->getUser($username);
+        $loginData = $this->model->getUserByUsername($username);
 
-        if ($loginData[0]['username'] == $username && password_verify ($password, $loginData[0]['password'])) {
+
+        if (isset($loginData['username']) && $loginData['username'] == $username && password_verify ($password, $loginData['password'])) {
             session_start();
             $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $loginData[0]['id'];
-            header('Location: ' . BASE_URL . 'admin');
+            $_SESSION['user_id'] = $loginData['id'];
+            $_SESSION['isAdmin'] = $loginData['isAdmin'];
+            if ($loginData['isAdmin'] == 1) {
+                header('Location: ' . BASE_URL . 'admin');
+            } else {
+                header('Location: ' . BASE_URL);
+            }
+            exit();
         } else {
             $this->view->showLoginFail();
         }
+
     }
 
     function registerUser() {
@@ -43,8 +51,36 @@ class LoginController {
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->model->registerUser($username, $hash);
+        if(!isset($this->model->getUser($username)[0]['username'])) {
+            $this->model->registerUser($username, $hash);
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $loginData['id'];
+            $_SESSION['isAdmin'] = $loginData['isAdmin'];
+        } else {
+            $this->view->showRegisterFail();
+        }
 
         header('Location: ' . BASE_URL);
+    }
+
+    function logout() {
+        session_start();
+        session_destroy();
+        header('Location: ' . BASE_URL);
+    }
+
+    function checkSession(){
+        if(!isset($_SESSION['username'])){
+            header('Location: ' . BASE_URL . 'login');
+            exit();
+        }
+    }
+    
+    function checkIfAdmin() {
+        if(!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] == 0) {
+            header('Location: ' . BASE_URL . 'error/403');
+            exit();
+        }
     }
 }

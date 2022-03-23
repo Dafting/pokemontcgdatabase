@@ -6,6 +6,7 @@ include_once('models/pokecards.model.php');
 include_once('models/trainercards.model.php');
 include_once('models/expansions.model.php');
 include_once('views/cards.view.php');
+include_once('controllers/login.controller.php');
 
 class CardsController {
     private $model;
@@ -18,6 +19,7 @@ class CardsController {
         $this->trainerModel = new TrainercardsModel();
         $this->expansionModel = new ExpansionsModel();
         $this->view = new CardsView($this->expansionModel->getAllExpansions());
+        $this->loginController = new LoginController();
     }
 
     function showIndex() {
@@ -38,10 +40,12 @@ class CardsController {
     }
 
     function showAddCards() {
+        $this->loginController->checkIfAdmin();
         $this->view->showAddCards();
     }
 
     function showAdmin() {
+        $this->loginController->checkIfAdmin();
         $this->view->showAdmin();
     }
 
@@ -52,23 +56,39 @@ class CardsController {
             header("Location: " . BASE_URL);
         } else {
             $results = $this->cardModel->searchCard($_GET['query']);
-            $this->view->showAllCards($results, $expansions);
+            $pagination = $this->paginateCards($results);
+            $this->view->showAllCards($pagination[0], $expansions, $pagination[1], $pagination[2]); 
+        }
+    }
+
+    function showAdvancedSearchCards() {
+        $expansions = $this->expansionModel->getAllExpansions();
+        $this->view->showAdvancedSearchCards($expansions);
+    }
+
+    function advancedSearch() {
+        $expansions = $this->expansionModel->getAllExpansions();
+        if($_GET['name'] == "" && $_GET['expansion'] == "" && $_GET['type'] == "" && $_GET['rarity'] == "" && $_GET['expNumber'] == "") {
+            header("Location: " . BASE_URL);
+        } else {
+            $results = $this->cardModel->advancedSearch($_GET['name'], $_GET['type'], $_GET['expansion'], $_GET['rarity'], $_GET['expNumber']);
+            #$pagination = $this->paginateCards($results);
+            $this->view->showAllCards($results, $expansions, 1, 1, false);
         }
     }
 
     function addCard() {
+        $this->loginController->checkIfAdmin();
         $name = $_REQUEST['name'];
         $type = $_REQUEST['type'];
         $expansion = $_REQUEST['expansion'];
         $expNumber = $_REQUEST['expNumber'];
         $rarity = $_REQUEST['rarity'];
         $image = $_FILES['input_name']['name'];
-
         if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
             $target_dir = "img/cards/" . uniqid("", true);
             $target_file = $target_dir . basename($_FILES["input_name"]["name"]);
             $uploadOk = 1;
-
             // Check if image file is a actual image or fake image
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["input_name"]["tmp_name"]);
@@ -104,7 +124,6 @@ class CardsController {
         }
     
         $card_id = $this->cardModel->insertCard($name, $type, $expansion, $expNumber, $rarity, $target_file);
-
         switch ($type) {
             case 1:
                 $this->view->showAddPokeCard($card_id);
@@ -122,8 +141,8 @@ class CardsController {
     }
 
     function deleteCard($id) {
+        $this->loginController->checkIfAdmin();
         $deletedCard = $this->cardModel->getACard($id);
-
         switch($deletedCard[0]->type) {
             case 1:
                 $this->pokeModel->deleteCard($id);
@@ -138,14 +157,19 @@ class CardsController {
                 echo "Error in deleteCard()";
             break;
         }
-
         $this->cardModel->deleteCard($id);
         $this->view->showAdmin();
+        header("Location: " . BASE_URL . "admin/listCards");
+    }
 
+    function deleteCardImg($id) {
+        $this->loginController->checkIfAdmin();
+        $this->cardModel->deleteCardImg($id);
         header("Location: " . BASE_URL . "admin/listCards");
     }
 
     function listCards() {
+        $this->loginController->checkIfAdmin();
         $cards = $this->cardModel->getAllCards();
         $expansions = $this->expansionModel->getAllExpansions();
 
@@ -210,6 +234,7 @@ class CardsController {
     }
 
     function showEditCard($id) {
+        $this->loginController->checkIfAdmin();
         $card = $this->cardModel->getACard($id);
         switch ($card[0]->type) {
             case 1:
@@ -228,7 +253,14 @@ class CardsController {
         $this->view->showEditCard($card, $cardDetails);
     }
 
+    function showEditCardImg($id) {
+        $this->loginController->checkIfAdmin();
+        $card = $this->cardModel->getACard($id);
+        $this->view->showEditCardImg($card);
+    }
+
     function editCard($id) {
+        $this->loginController->checkIfAdmin();
 
         if (isset($_REQUEST['name'])) {
             $name = $_REQUEST['name'];
@@ -269,10 +301,73 @@ class CardsController {
         // header("Location: " . BASE_URL . "admin/listCards");
     }
 
+    function editCardImg($id) {
+        $image = $_FILES['input_name']['name'];
+        if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
+            $target_dir = "img/cards/" . uniqid("", true);
+            $target_file = $target_dir . basename($_FILES["input_name"]["name"]);
+            $uploadOk = 1;
+
+            // Check if image file is a actual image or fake image
+            if(isset($_POST["submit"])) {
+                $check = getimagesize($_FILES["input_name"]["tmp_name"]);
+                if($check !== false) {
+                    //echo "File is an image - " . $check["mime"] . ".";
+                    $uploadOk = 1;
+                } else {
+                    //echo "File is not an image.";
+                    $uploadOk = 0;
+                }
+            }
+
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                //echo "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+
+            // Check file size
+            if ($_FILES["input_name"]["size"] > 500000) {
+                //echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                //echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["input_name"]["tmp_name"], $target_file)) {
+                    //echo "The file ". basename( $_FILES["input_name"]["name"]). " has been uploaded.";
+                } else {
+                    //echo "Sorry, there was an error uploading your file.";
+                }
+            }
+        }
+        $this->cardModel->updateCardImg($id, $target_file);
+        $this->showCard($id);
+    }
+
+    function paginateCards($cards) {
+        if(!isset($_REQUEST['page'])) {
+            $page = 1;
+        } else {
+            $page = $_REQUEST['page'];
+        }
+        $paginatedCards = array_slice($cards, ($page-1)*12, 12);
+        if (end($cards) === end ($paginatedCards)) {
+            $lastPage = true;
+        } else {
+            $lastPage = false;
+        }
+        return array($paginatedCards, $page, $lastPage);
+    }
+
     function showAllCards() {
         $cards = $this->cardModel->getAllCards();
+        $pagination = $this->paginateCards($cards); 
         $expansions = $this->expansionModel->getAllExpansions();
-        $this->view->showAllCards($cards, $expansions);
+        $this->view->showAllCards($pagination[0], $expansions, $pagination[1], $pagination[2]);
     }
 
     function showCardsByType($type) {
@@ -280,17 +375,20 @@ class CardsController {
             case 'pokemon':
                 $cards = $this->cardModel->getAllCardsByType(1);
                 $expansions = $this->expansionModel->getAllExpansions();
-                $this->view->showAllCards($cards, $expansions);
+                $pagination = $this->paginateCards($cards); 
+                $this->view->showAllCards($pagination[0], $expansions, $pagination[1], $pagination[2]);
                 break;
             case 'trainers':
                 $cards = $this->cardModel->getAllCardsByType(2);
                 $expansions = $this->expansionModel->getAllExpansions();
-                $this->view->showAllCards($cards, $expansions);
+                $pagination = $this->paginateCards($cards);
+                $this->view->showAllCards($pagination[0], $expansions, $pagination[1], $pagination[2]);
                 break;
             case 'energies':
                 $cards = $this->cardModel->getAllCardsByType(3);
                 $expansions = $this->expansionModel->getAllExpansions();
-                $this->view->showAllCards($cards, $expansions);
+                $pagination = $this->paginateCards($cards);
+                $this->view->showAllCards($pagination[0], $expansions, $pagination[1], $pagination[2]);
                 break;
             default:
                 echo "Error in showCardsByType()";
@@ -301,7 +399,7 @@ class CardsController {
     function showCardsByExpansion($expansion) {
         $cards = $this->cardModel->getAllCardsByExpansion($expansion);
         $allExpansions = $this->expansionModel->getAllExpansions();
-
-        $this->view->showAllCards($cards, $allExpansions);
+        $pagination = $this->paginateCards($cards);
+        $this->view->showAllCards($pagination[0], $allExpansions, $pagination[1], $pagination[2]);
     }
 }

@@ -17,7 +17,7 @@ class ExpansionsModel {
         return $expansions;
     }
 
-    function getExpansion($expansion) {
+    function getExpansion($id) {
         $query = $this->db->prepare('SELECT * FROM expansions WHERE id = :id');
         $query->execute(['id' => $id]);
 
@@ -31,12 +31,12 @@ class ExpansionsModel {
         $query->execute([$name, $imageDir]);
     }
 
-    function deleteCard($id) {
+    function deleteExpansion($id) {
         $query = $this->db->prepare('DELETE FROM expansions WHERE id = :id');
         $query->execute(['id' => $id]);
     }
 
-    function updateCard($id, $name) {
+    function editExpansion($id, $name) {
         $query = $this->db->prepare('UPDATE expansions SET name = :name WHERE id = :id');
         $query->execute(['name' => $name, 'id' => $id]);
     }

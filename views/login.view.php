@@ -30,4 +30,14 @@ class LoginView {
         $this->smarty->display('templates/navbar.tpl');
         $this->smarty->display('templates/register.tpl');
     }
+
+    function showRegisterFail() {
+        $this->smarty->assign('alertType', 'alert-danger');
+        $this->smarty->assign('alertTitle', 'Usuario ya existente');
+        $this->smarty->assign('alertDescription', 'El usuario ya existe en la base de datos');
+
+        $this->smarty->display('templates/navbar.tpl');
+        $this->smarty->display('templates/alert.tpl');
+        $this->smarty->display('templates/register.tpl');
+    }
 }

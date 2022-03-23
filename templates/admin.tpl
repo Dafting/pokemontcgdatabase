@@ -9,6 +9,8 @@
 			<hr>
 			<a href="admin/listExpansions" class="btn btn-secondary btn-block" type="button">Listar expansiones</a>
             <a href="admin/addExpansion" class="btn btn-secondary btn-block" type="button">Agregar expansión</a>
+			<hr>
+            <a href="admin/listUsers" class="btn btn-danger btn-block" type="button">Listar usuarios</a>
 		</div>
 	</div>
 </div>
