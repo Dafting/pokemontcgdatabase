@@ -23,7 +23,12 @@ class UsersController {
 
     function deleteUser($id) {
         $this->loginController->checkIfAdmin();
-        $this->model->deleteUser($id);
+        $user = $this->model->getUser($id);
+        if($_SESSION['username'] != $user['username']) {
+            if ($user['isAdmin'] == 1) {
+                $this->model->deleteUser($id);
+            }
+        }
         header('Location: ' . BASE_URL . 'admin/listUsers');
     }
 

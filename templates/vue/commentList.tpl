@@ -14,7 +14,7 @@
         <div class="card-body">
             <strong>{{ comment.score }}★</strong>
             <span>{{ comment.comment }}</span>
-            <button {/literal}{if ($smarty.session.isAdmin == 1)} class="btn btn-sm btn-danger"{else} class="d-none" disabled{/if}{literal} v-on:click="deleteComment(comment.id)">Borrar</button>
+            <button {/literal}{if isset($smarty.session.isAdmin) and ($smarty.session.isAdmin == 1)} class="btn btn-sm btn-danger"{else} class="d-none" disabled{/if}{literal} v-on:click="deleteComment(comment.id)">Borrar</button>
         </div>
     </div>
 </section>
