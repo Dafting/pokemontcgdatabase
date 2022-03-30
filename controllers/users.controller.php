@@ -25,9 +25,7 @@ class UsersController {
         $this->loginController->checkIfAdmin();
         $user = $this->model->getUser($id);
         if($_SESSION['username'] != $user['username']) {
-            if ($user['isAdmin'] == 1) {
-                $this->model->deleteUser($id);
-            }
+            $this->model->deleteUser($id);
         }
         header('Location: ' . BASE_URL . 'admin/listUsers');
     }
